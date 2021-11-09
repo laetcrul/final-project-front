@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'event', loadChildren: () => import('./modules/event/event.module')
       .then(t => t.EventModule) },
   {path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent}
 ];
 
