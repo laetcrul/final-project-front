@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventListComponent } from './components/event-list/event-list.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventCreateComponent } from './components/event-form/event-create.component';
 import { EventRoutingModule } from './event-routing.module';
+import { EventListComponent } from './pages/event-list/event-list.component';
+import { EventCardComponent } from './components/event-card/event-card.component';
 
 
 
 @NgModule({
   declarations: [
-    EventListComponent,
     EventDetailsComponent,
-    EventCreateComponent
+    EventCreateComponent,
+    EventListComponent,
+    EventCardComponent
   ],
   imports: [
     CommonModule,
