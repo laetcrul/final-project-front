@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventCreateComponent } from './components/event-form/event-create.component';
 import { EventRoutingModule } from './event-routing.module';
 import { EventListComponent } from './pages/event-list/event-list.component';
-import { EventCardComponent } from './components/event-card/event-card.component';
+import { EventDetailsComponent } from './components/event-details/event-details.component';
 
 
 
@@ -12,8 +11,7 @@ import { EventCardComponent } from './components/event-card/event-card.component
   declarations: [
     EventDetailsComponent,
     EventCreateComponent,
-    EventListComponent,
-    EventCardComponent
+    EventListComponent
   ],
   imports: [
     CommonModule,

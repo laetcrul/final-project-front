@@ -15,11 +15,11 @@ export class AuthService {
     return this.server.post<User>('login', user)
     .pipe(map((user: User) => {
       if(user.token){
-        sessionStorage.setItem('token', user.token.replace('Bearer', ''));
+        sessionStorage.setItem('token', user.token.replace('Bearer ', ''));
         sessionStorage.setItem('user', JSON.stringify(user));
-        console.log(sessionStorage.getItem('user'))
         this.isLoggedIn = true;
       }
+      console.log(sessionStorage.getItem('user'))
       return this.isLoggedIn;
     }));
   }

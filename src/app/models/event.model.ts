@@ -2,7 +2,7 @@ import { Address } from "./address.model";
 import { Topic } from "./topic.model";
 import { User } from "./user.model";
 
-export interface Event{
+export interface EventModel {
     id: number,
     name: string,
     description: string,

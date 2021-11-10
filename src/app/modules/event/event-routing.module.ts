@@ -6,8 +6,6 @@ const routes: Routes = [
     {path: 'list', component: EventListComponent}
 ];
 
-
-
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]

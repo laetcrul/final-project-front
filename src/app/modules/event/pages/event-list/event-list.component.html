@@ -1,3 +1,14 @@
 <div class="container">
-    <p>event-list works!</p>
+    <div *ngFor="let event of eventList">
+        <div>{{event.topic.name}}</div>
+        <div class="event" class="row" >
+            <div class="col-2"><img src="{{event.image}}"></div>
+            <div class="row flex-column">
+                <div class="col">{{event.name}}</div>
+                <div class="col">{{event.address.city}}</div>
+                <div class="col">{{event.date}}</div>
+            </div>
+
+        </div>
+    </div>
 </div>
