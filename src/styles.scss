@@ -4,3 +4,11 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import './scss/fonts.scss';
+
+
+@media screen and (max-width: 500px){ 
+    .container{
+        padding:0;
+    }
+}
+
