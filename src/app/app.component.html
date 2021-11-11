@@ -7,11 +7,57 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a *ngIf="isLoggedIn()" class="nav-link" href="/event/list">Events <span class="sr-only">(current)</span></a>
+
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="/topic/list" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            See All
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/topic/list">Topics</a>
+            <a class="dropdown-item" href="/event/list">Events</a>
+          </div>
         </li>
-        <li class="nav-item active">
-          <a *ngIf="isLoggedIn()" class="nav-link" href="/topic/list">Topics <span class="sr-only">(current)</span></a>
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            See Followed
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Topics</a>
+            <a class="dropdown-item" href="#">Events</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            New
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/topic/create">Topic</a>
+            <a class="dropdown-item" href="/event/create">Event</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Manage
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">My Topics</a>
+            <a class="dropdown-item" href="#">My Events</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Alerts</a>
+            <a class="dropdown-item" href="#">Users</a>
+          </div>
         </li>
       </ul>
     </div>

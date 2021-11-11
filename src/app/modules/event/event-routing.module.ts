@@ -1,9 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { EventListComponent } from './pages/event-list/event-list.component';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
 
 const routes: Routes = [
-    {path: 'list', component: EventListComponent}
+    {path: 'list', component: EventListComponent},
+    {path: 'create', component: CreateEventComponent}
 ];
 
 @NgModule({
