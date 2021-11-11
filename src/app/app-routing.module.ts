@@ -6,6 +6,8 @@ import { LoginComponent } from './components/login/login.component';
 const routes: Routes = [
   { path: 'event', loadChildren: () => import('./modules/event/event.module')
       .then(t => t.EventModule) },
+  {path: 'topic', loadChildren: () => import('./modules/topics/topics.module')
+      .then(t => t.TopicsModule)},
   {path: 'home', component: HomeComponent},
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent}
