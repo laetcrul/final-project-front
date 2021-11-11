@@ -32,6 +32,6 @@ export class LoginComponent implements OnInit {
       const user = this.userForm.value as User;
       this.authService.login(user).subscribe((success) => console.log(success));
     }
-    this.router.navigate(["event/list"])
+    this.router.navigate(["home"])
   }
 }
