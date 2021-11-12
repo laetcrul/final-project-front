@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Topic } from 'src/app/models/topic.model';
+import { TopicService } from 'src/app/services/topic.service';
 
 @Component({
   selector: 'app-create-topic',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTopicComponent implements OnInit {
 
-  constructor() { }
+  constructor(private topicService: TopicService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  submit(topic: Topic){
+    this.topicService.insert(topic).subscribe(() => {});
+    this.router.navigate(["topic/list"])
+  }
 }

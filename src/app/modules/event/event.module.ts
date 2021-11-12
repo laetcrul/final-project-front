@@ -5,6 +5,10 @@ import { EventListComponent } from './pages/event-list/event-list.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
+import { AddressFormComponent } from './components/address-form/address-form.component';
+import { CreateAddressComponent } from './pages/create-address/create-address.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,11 +17,16 @@ import { CreateEventComponent } from './pages/create-event/create-event.componen
     EventDetailsComponent,
     EventListComponent,
     EventFormComponent,
-    CreateEventComponent
+    CreateEventComponent,
+    AddressFormComponent,
+    CreateAddressComponent
   ],
   imports: [
     CommonModule,
-    EventRoutingModule
+    EventRoutingModule,
+    NgbModalModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class EventModule { }
