@@ -1,17 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Address } from 'src/app/models/address.model';
 import { EventModel } from 'src/app/models/event.model';
-import { CreateAddressComponent } from '../../pages/create-address/create-address.component';
-
 
 @Component({
   selector: 'app-event-form',
   templateUrl: './event-form.component.html',
   styleUrls: ['./event-form.component.scss']
 })
+
 export class EventFormComponent implements OnInit {
-  newAddress: Address;
+  newAddress: Address | undefined;
 
   eventForm: FormGroup;
   nameCtl: FormControl;
@@ -23,11 +22,10 @@ export class EventFormComponent implements OnInit {
   limitedToDepartmentCtl: FormControl;
 
   @Output() eventEvent = new EventEmitter<EventModel>();
+  @Input() address! : Address;
 
 
   constructor(private fb: FormBuilder) {
-    this.newAddress = {id: 0, street: "", city: "", postcode: 0, number: 0, country: ""};
-
     this.nameCtl = fb.control(null, [Validators.required, Validators.maxLength(50)]),
     this.descriptionCtl = fb.control(null,  Validators.maxLength(500));
     this.dateCtl = fb.control(null, Validators.required);
@@ -48,6 +46,16 @@ export class EventFormComponent implements OnInit {
    }
 
   ngOnInit(): void {
+  }
+
+  public submitAddress(newAddress : any){
+    this.newAddress = newAddress as Address;
+    console.log(this.newAddress);
+    console.log(this.newAddressIsPresent())
+  }
+
+  public newAddressIsPresent(){
+    return this.newAddress != undefined;
   }
 
   public submit(){

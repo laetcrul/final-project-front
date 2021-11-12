@@ -42,8 +42,4 @@ export class AddressFormComponent implements OnInit {
       this.addressEvent.emit(this.addressForm.value as Address)
     }
   }
-
-
-
-
 }

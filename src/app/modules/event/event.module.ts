@@ -6,7 +6,6 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
-import { CreateAddressComponent } from './pages/create-address/create-address.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -19,14 +18,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EventFormComponent,
     CreateEventComponent,
     AddressFormComponent,
-    CreateAddressComponent
   ],
   imports: [
     CommonModule,
     EventRoutingModule,
     NgbModalModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class EventModule { }

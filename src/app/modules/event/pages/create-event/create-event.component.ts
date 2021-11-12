@@ -14,7 +14,7 @@ export class CreateEventComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public submit(event: EventModel){
+  public submit(event: any){
     this.eventService.insert(event).subscribe(() => {});
   }
 }
