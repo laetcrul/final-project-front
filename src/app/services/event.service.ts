@@ -13,4 +13,12 @@ export class EventService extends CRUD<EventModel>{
   constructor(protected server: ServerService) {
     super(server, config);
    }
+
+   public register(event: EventModel){
+     return this.server.put<EventModel>("event/register/" + event.id, event);
+   }
+
+   public unregister(event: EventModel){
+    return this.server.put<EventModel>("event/unregister/" + event.id, event);
+  }
 }

@@ -13,4 +13,12 @@ export class TopicService extends CRUD<Topic>{
   constructor(protected server: ServerService) {
     super(server, config);
    }
+
+   public register(topic: Topic){
+    return this.server.put<Topic>("topic/register/" + topic.id, topic);
+  }
+
+  public unregister(topic: Topic){
+   return this.server.put<Topic>("topic/unregister/" + topic.id, topic);
+ }
 }

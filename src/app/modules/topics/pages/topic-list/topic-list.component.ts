@@ -13,15 +13,27 @@ export class TopicListComponent implements OnInit {
   topicList: Topic[] = [];
 
   constructor(private topicService: TopicService, private authService: AuthService) {
-    this.topicService.getAll().subscribe((topics: Topic[]) => this.topicList = topics);
+    this.refresh();
    }
 
   ngOnInit(): void {
+  }
+
+  public refresh(){
+    this.topicService.getAll().subscribe((topics: Topic[]) => this.topicList = topics);
   }
 
   public isSubscribedToTopic(topic: Topic) : boolean{
     const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
 
     return topic.subscribedUsers.find((found) => found.id === user.id) != undefined;
+  }
+
+  public register(topic: Topic){
+    this.topicService.register(topic).subscribe(() => {this.refresh();});
+  }
+
+  public unregister(topic: Topic){
+    this.topicService.unregister(topic).subscribe(() => {this.refresh();});
   }
 }
