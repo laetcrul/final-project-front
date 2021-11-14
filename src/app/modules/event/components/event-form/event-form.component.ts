@@ -38,8 +38,8 @@ export class EventFormComponent implements OnInit {
     this.dateCtl = fb.control(null, Validators.required);
     this.imageCtl = fb.control(null, Validators.maxLength(200));
     this.addressCtl = fb.control(null, Validators.required);
-    this.limitedToDepartmentCtl = fb. control(null, Validators.required);
-    this.limitedToTeamCtl = fb. control(null, Validators.required);
+    this.limitedToDepartmentCtl = fb. control(false, Validators.required);
+    this.limitedToTeamCtl = fb. control(false, Validators.required);
 
     this.eventForm = fb.group({
       name: this.nameCtl,
@@ -66,9 +66,9 @@ export class EventFormComponent implements OnInit {
   }
 
   public submit(){
-    if(this.eventForm.valid){
-      const event = this.eventForm.value as EventModel;
-      this.eventEvent.emit(event);
-    }
+   
+      //const event = this.eventForm.value as EventModel;
+      //this.eventEvent.emit(event);
+      console.log(this.eventForm.value);
   }
 }
