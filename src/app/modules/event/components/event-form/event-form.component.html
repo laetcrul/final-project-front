@@ -1,15 +1,91 @@
-<div class="container">
-    <p>event-form works!</p>
+<div class="container d-flex flex-column">
+    <form (ngSubmit)="submit()" [formGroup]="eventForm" class="eventForm">
+        <div><h1>New Event</h1></div>
+    
+        <div class = "form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" [formControl]="nameCtl">
+            <small class="text-danger" *ngIf="nameCtl.hasError('required')">Required</small>
+        </div>
 
-   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Create new Address
-    </button>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Example select</label>
+            <select class="form-control" id="address">
+                <div *ngFor="let address of addressList">
+                    <option>aa</option>
+                </div>
+            </select>
+          </div>
+
+          <label for="typeahead-focus">Search for a state:</label>
+
+
+        <div><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            Create new Address
+            </button>
+        </div>
   
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <app-address-form (addressEvent)="submitAddress($event)"></app-address-form>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <app-address-form (addressEvent)="submitAddress($event)"></app-address-form>
+                </div>
             </div>
         </div>
-    </div>
+
+      
+        <div class="form-check">
+            <input class="form-check-input" name="exampleRadios" type="radio" id="forAll" checked>
+            <label for="forAll">Open to all</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" name="exampleRadios" type="radio" id="forTeam" value="limitedToTeam">
+            <label for="forTeam">Team only</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" name="exampleRadios" type="radio" id="forDepartment" value="limitedToDepartment">
+            <label for="forDepartment">Department only</label>
+        </div>
+        
+
+        <div><button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">Create</button></div>
+    </form>
+
+    <form>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Email address</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Example select</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">Example multiple select</label>
+          <select multiple class="form-control" id="exampleFormControlSelect2">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+      </form>
 </div>
