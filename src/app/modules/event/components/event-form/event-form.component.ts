@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Address } from 'src/app/models/address.model';
 import { EventModel } from 'src/app/models/event.model';
 import { AddressService } from 'src/app/services/address.service';
+import {EventService} from "../../../../services/event.service";
 
 @Component({
   selector: 'app-event-form',
@@ -20,14 +21,13 @@ export class EventFormComponent implements OnInit {
   dateCtl: FormControl;
   imageCtl: FormControl;
   addressCtl: FormControl;
-  limitedToTeamCtl: FormControl;
-  limitedToDepartmentCtl: FormControl;
+  limitedToCtl: FormControl;
 
   @Output() eventEvent = new EventEmitter<EventModel>();
   @Input() address! : Address;
 
 
-  constructor(private fb: FormBuilder, private addressService: AddressService) {
+  constructor(private fb: FormBuilder, private addressService: AddressService, private eventService: EventService) {
     this.addressService.getAll().subscribe((res : Address[]) => {
       console.log(res);
       this.addressList = res;
@@ -37,18 +37,16 @@ export class EventFormComponent implements OnInit {
     this.descriptionCtl = fb.control(null,  Validators.maxLength(500));
     this.dateCtl = fb.control(null, Validators.required);
     this.imageCtl = fb.control(null, Validators.maxLength(200));
-    this.addressCtl = fb.control(null, Validators.required);
-    this.limitedToDepartmentCtl = fb. control(false, Validators.required);
-    this.limitedToTeamCtl = fb. control(false, Validators.required);
+    this.addressCtl = fb.control(null);
+    this.limitedToCtl = fb. control(false, Validators.required);
 
     this.eventForm = fb.group({
       name: this.nameCtl,
       description: this.descriptionCtl,
       date: this.dateCtl,
       image: this.imageCtl,
-      address: this.imageCtl,
-      limitedToDepartment: this.limitedToDepartmentCtl,
-      limitedToTeam: this.limitedToTeamCtl
+      address: this.addressCtl,
+      limitedTo: this.limitedToCtl
     });
    }
 
@@ -58,7 +56,7 @@ export class EventFormComponent implements OnInit {
   public submitAddress(newAddress : any){
     this.newAddress = newAddress as Address;
     console.log(this.newAddress);
-    console.log(this.newAddressIsPresent())
+    this.addressList.push(this.newAddress);
   }
 
   public newAddressIsPresent(){
@@ -66,9 +64,31 @@ export class EventFormComponent implements OnInit {
   }
 
   public submit(){
-   
-      //const event = this.eventForm.value as EventModel;
-      //this.eventEvent.emit(event);
-      console.log(this.eventForm.value);
+    const event = this.eventForm.value as EventModel;
+
+    switch (this.limitedToCtl.value){
+      case "team":
+        event.limitedToTeam = true;
+        event.limitedToDepartment = false;
+        break;
+      case "department":
+        event.limitedToDepartment = true;
+        event.limitedToTeam = false;
+        break;
+      case "all":
+        event.limitedToTeam = false;
+        event.limitedToDepartment = false;
+        break;
+    }
+
+    if(this.newAddressIsPresent()){
+      event.address = this.newAddress as Address;
+    }
+    else{
+      console.log(event);
+      event.addressId = parseInt(this.addressCtl.value);
+    }
+      console.log(event);
+    this.eventService.insert(event).subscribe(() => console.log(event));
   }
 }

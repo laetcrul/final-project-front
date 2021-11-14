@@ -22,7 +22,7 @@
         <div class="form-group">
             <label for="address">Address</label>
             <select class="form-control" id="address" [formControl]="addressCtl">
-                    <option *ngFor="let address of addressList" [ngValue]="address.id">{{address.street}} {{address.number}}, {{address.postcode}} {{address.city}} ({{address.country}})</option>
+                    <option *ngFor="let address of addressList" [value]="address.id">{{address.street}} {{address.number}}, {{address.postcode}} {{address.city}} ({{address.country}})</option>
             </select>
         </div>
 
@@ -49,18 +49,18 @@
 
 
       <div class="form-check">
-          <input class="form-check-input" name="exampleRadios" type="radio" id="forAll" checked>
-          <label for="forAll">Open to all</label>
+          <input class="form-check-input" name="limitedTo" type="radio" id="all" value="all" [formControl]="limitedToCtl" checked>
+          <label for="all">Open to all</label>
       </div>
 
       <div class="form-check">
-          <input class="form-check-input" name="exampleRadios" type="radio" id="forTeam" [formControl]="limitedToTeamCtl">
-          <label for="forTeam">Team only</label>
+          <input class="form-check-input" name="limitedTo" type="radio" id="team" value="team" [formControl]="limitedToCtl">
+          <label for="team">Team only</label>
       </div>
 
       <div class="form-check">
-          <input class="form-check-input" name="exampleRadios" type="radio" id="forDepartment" [formControl]="limitedToDepartmentCtl">
-          <label for="forDepartment">Department only</label>
+          <input class="form-check-input" name="limitedTo" type="radio" id="department" value="department" [formControl]="limitedToCtl">
+          <label for="department">Department only</label>
       </div>
 
 

@@ -10,6 +10,7 @@ export interface EventModel {
     date: Date,
     topic: Topic,
     address: Address,
+    addressId: number,
     createdAt: Date,
     updatedAt: Date,
     creator: User,

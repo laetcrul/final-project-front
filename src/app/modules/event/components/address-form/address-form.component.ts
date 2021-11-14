@@ -24,7 +24,7 @@ export class AddressFormComponent implements OnInit {
     this.cityCtl = fb.control(null, [Validators.required, Validators.maxLength(30)]);
     this.postcodeCtl = fb.control(null, [Validators.required, Validators.maxLength(8)]);
     this.countryCtl = fb.control(null, [Validators.required, Validators.maxLength(30)]);
-   
+
     this.addressForm = fb.group({
       number : this.numberCtl,
       street: this.streetCtl,
@@ -39,7 +39,7 @@ export class AddressFormComponent implements OnInit {
 
   public submit(){
     if(this.addressForm.valid){
-      this.addressEvent.emit(this.addressForm.value as Address)
+      this.addressEvent.emit(this.addressForm.value as Address);
     }
   }
 }
