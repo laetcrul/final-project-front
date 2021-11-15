@@ -4,6 +4,7 @@ import { TopicListComponent } from './pages/topic-list/topic-list.component';
 import { TopicRoutingModule } from './topic-routing-module';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { CreateTopicComponent } from './pages/create-topic/create-topic.component';
+import {TopicDetailsComponent} from "./pages/topic-details/topic-details.component";
 
 
 
@@ -11,7 +12,8 @@ import { CreateTopicComponent } from './pages/create-topic/create-topic.componen
   declarations: [
     TopicListComponent,
     TopicFormComponent,
-    CreateTopicComponent
+    CreateTopicComponent,
+    TopicDetailsComponent
   ],
   imports: [
     CommonModule,
