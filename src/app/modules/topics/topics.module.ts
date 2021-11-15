@@ -24,3 +24,4 @@ import { TopicDetailsComponent } from './pages/topic-details/topic-details.compo
   ]
 })
 export class TopicsModule { }
+
