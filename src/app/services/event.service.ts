@@ -21,4 +21,8 @@ export class EventService extends CRUD<EventModel>{
    public unregister(event: EventModel){
     return this.server.put<EventModel>("event/unregister/" + event.id, event);
   }
+
+  public getAllByTopic(id: number){
+    return this.server.get<EventModel[]>("event/by_topic/" + id);
+  }
 }

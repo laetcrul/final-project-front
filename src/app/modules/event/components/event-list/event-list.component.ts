@@ -13,8 +13,6 @@ import {Topic} from "../../../../models/topic.model";
 export class EventListComponent implements OnInit {
   eventList!: EventModel[];
 
-  @Input() topicFilter! : Topic;
-
   constructor(private eventService: EventService, private router: Router, private route: ActivatedRoute) {
     this.refresh();
    }
@@ -23,12 +21,17 @@ export class EventListComponent implements OnInit {
   }
 
   public refresh(){
-    this.eventService.getAll().subscribe((events: EventModel[]) => this.eventList = events);
 
-    if(this.topicFilter != undefined){
-      this.eventList.filter(event => event.topic == this.topicFilter);
+    const topicId = parseInt(this.route.snapshot.paramMap.get('id') || "");
+    console.log("filter = " + topicId);
+
+    if(topicId){
+      this.eventService.getAllByTopic(topicId).subscribe((res) => this.eventList = res);
     }
-    console.log("filter = " + this.topicFilter);
+    else{
+      this.eventService.getAll().subscribe((events: EventModel[]) => this.eventList = events);
+    }
+
   }
 
   public isRegistered(event: EventModel) : boolean{
