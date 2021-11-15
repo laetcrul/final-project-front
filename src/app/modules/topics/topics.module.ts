@@ -5,6 +5,7 @@ import { TopicRoutingModule } from './topic-routing-module';
 import { TopicFormComponent } from './components/topic-form/topic-form.component';
 import { CreateTopicComponent } from './pages/create-topic/create-topic.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TopicDetailsComponent } from './pages/topic-details/topic-details.component';
 
 
 
@@ -12,7 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     TopicListComponent,
     TopicFormComponent,
-    CreateTopicComponent
+    CreateTopicComponent,
+    TopicDetailsComponent
   ],
   imports: [
     CommonModule,

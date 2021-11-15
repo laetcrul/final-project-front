@@ -2,6 +2,13 @@
     <form (ngSubmit)="submit()" [formGroup]="eventForm" class="eventForm">
         <div><h1>New Event</h1></div>
 
+        <div>
+          <label for="topic">Related topic</label>
+          <select class="form-control" id="topic" [formControl]="topicCtl">
+          <option *ngFor="let topic of topicList" [value]="topic.id">{{topic.name}}</option>
+          </select>
+        </div>
+
         <div class = "form-group">
             <label for="name">Name</label>
             <input type="text" id="name" class="form-control" [formControl]="nameCtl">
@@ -22,6 +29,7 @@
         <div class="form-group">
             <label for="address">Address</label>
             <select class="form-control" id="address" [formControl]="addressCtl">
+              <option selected *ngIf="newAddress">{{newAddress.street}} {{newAddress.number}}, {{newAddress.postcode}} {{newAddress.city}} ({{newAddress.country}})</option>
                     <option *ngFor="let address of addressList" [value]="address.id">{{address.street}} {{address.number}}, {{address.postcode}} {{address.city}} ({{address.country}})</option>
             </select>
         </div>
@@ -30,8 +38,6 @@
             Create new Address
             </button>
         </div>
-
-
 
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -63,7 +69,6 @@
           <label for="department">Department only</label>
       </div>
 
-
-        <div><button type="submit" class="btn btn-primary" >Create</button></div>
+        <div><button [disabled]="eventForm.invalid"  type="submit" class="btn btn-primary" >Create</button></div>
     </form>
 </div>

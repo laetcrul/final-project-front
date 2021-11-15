@@ -4,6 +4,8 @@ import { Address } from 'src/app/models/address.model';
 import { EventModel } from 'src/app/models/event.model';
 import { AddressService } from 'src/app/services/address.service';
 import {EventService} from "../../../../services/event.service";
+import {Topic} from "../../../../models/topic.model";
+import {TopicService} from "../../../../services/topic.service";
 
 @Component({
   selector: 'app-event-form',
@@ -14,6 +16,7 @@ import {EventService} from "../../../../services/event.service";
 export class EventFormComponent implements OnInit {
   newAddress: Address | undefined;
   addressList: Address[] = [];
+  topicList: Topic[] = [];
 
   eventForm: FormGroup;
   nameCtl: FormControl;
@@ -22,15 +25,27 @@ export class EventFormComponent implements OnInit {
   imageCtl: FormControl;
   addressCtl: FormControl;
   limitedToCtl: FormControl;
+  topicCtl: FormControl;
 
   @Output() eventEvent = new EventEmitter<EventModel>();
   @Input() address! : Address;
 
 
-  constructor(private fb: FormBuilder, private addressService: AddressService, private eventService: EventService) {
-    this.addressService.getAll().subscribe((res : Address[]) => {
-      console.log(res);
-      this.addressList = res;
+  constructor(private fb: FormBuilder,
+              private addressService: AddressService,
+              private eventService: EventService,
+              private topicService: TopicService) {
+    this.addressService.getAll().subscribe((res : Address[]) => this.addressList = res);
+    this.topicService.getAll().subscribe((res) => {
+      this.topicList = res;
+      this.topicList.sort(function (a,b){
+        if(a.name > b.name){
+          return 1;
+        }
+        if(a.name < b.name){
+          return -1;
+        } return 0;
+      });
     });
 
     this.nameCtl = fb.control(null, [Validators.required, Validators.maxLength(50)]),
@@ -38,7 +53,8 @@ export class EventFormComponent implements OnInit {
     this.dateCtl = fb.control(null, Validators.required);
     this.imageCtl = fb.control(null, Validators.maxLength(200));
     this.addressCtl = fb.control(null);
-    this.limitedToCtl = fb. control(false, Validators.required);
+    this.limitedToCtl = fb. control(null, Validators.required);
+    this.topicCtl = fb.control(null)
 
     this.eventForm = fb.group({
       name: this.nameCtl,
@@ -46,7 +62,8 @@ export class EventFormComponent implements OnInit {
       date: this.dateCtl,
       image: this.imageCtl,
       address: this.addressCtl,
-      limitedTo: this.limitedToCtl
+      limitedTo: this.limitedToCtl,
+      topic: this.topicCtl,
     });
    }
 
@@ -81,14 +98,19 @@ export class EventFormComponent implements OnInit {
         break;
     }
 
+    event.topic = this.topicList.find((topic) => topic.id == parseInt(this.topicCtl.value)) as Topic;
+
     if(this.newAddressIsPresent()){
       event.address = this.newAddress as Address;
+      event.addressId = undefined;
     }
     else{
-      console.log(event);
       event.addressId = parseInt(this.addressCtl.value);
+      event.address = undefined;
     }
-      console.log(event);
-    this.eventService.insert(event).subscribe(() => console.log(event));
+
+    this.eventService.insert(event).subscribe(() => {
+      alert("Event was successfully created");
+    });
   }
 }
