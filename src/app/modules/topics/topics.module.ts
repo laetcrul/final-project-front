@@ -6,6 +6,7 @@ import { TopicFormComponent } from './components/topic-form/topic-form.component
 import { CreateTopicComponent } from './pages/create-topic/create-topic.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TopicDetailsComponent} from "./pages/topic-details/topic-details.component";
+import {EventModule} from "../event/event.module";
 
 
 
@@ -20,7 +21,8 @@ import {TopicDetailsComponent} from "./pages/topic-details/topic-details.compone
     CommonModule,
     TopicRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    EventModule
   ]
 })
 export class TopicsModule { }
