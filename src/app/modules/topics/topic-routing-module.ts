@@ -7,7 +7,7 @@ import {TopicDetailsComponent} from "./pages/topic-details/topic-details.compone
 const routes: Routes = [
     {path: 'list', component: TopicListComponent},
     {path: 'create', component: CreateTopicComponent},
-    {path: ':id', component: TopicDetailsComponent}
+    {path: ':id', component: TopicDetailsComponent},
 ];
 
 @NgModule({
