@@ -1,11 +1,20 @@
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { TopicListComponent } from './pages/topic-list/topic-list.component';
-import { CreateTopicComponent } from './pages/create-topic/create-topic.component';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CreateTopicComponent} from './pages/create-topic/create-topic.component';
+import {TopicDetailsComponent} from "./pages/topic-details/topic-details.component";
+import {AllTopicsComponent} from "./pages/all-topics/all-topics.component";
+import {SubscribedTopicsComponent} from "./pages/subscribed-topics/subscribed-topics.component";
+import {FilterEnum} from "../event/filter.enum";
+import {MyTopicsComponent} from "./pages/my-topics/my-topics.component";
 
 const routes: Routes = [
-    {path: 'list', component: TopicListComponent},
-    {path: 'create', component: CreateTopicComponent}
+    {path: 'all', component: AllTopicsComponent},
+    {path: 'create', component: CreateTopicComponent},
+    {path: 'subscribed', component: SubscribedTopicsComponent, data: {filter: FilterEnum.subscribed}},
+    {path: 'created', component: MyTopicsComponent, data: {filter: FilterEnum.created}},
+    {path: 'detail', children: [ {
+      path: ':id', component: TopicDetailsComponent}
+    ]},
 ];
 
 @NgModule({

@@ -1,0 +1,20 @@
+<div class="container">
+    <div *ngFor="let topic of topicList">
+        <div class="row info flex justify-content-left margin-right-0 border-bottom border-secondary p-3" >
+            <div class="col-3"><img src="{{topic.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
+            <div class="col-3">
+                <div class="name">{{topic.name}}</div>
+            </div>
+
+            <div class="row flex-column col-3 actions text-center justify-content-center">
+                <div class="actions">
+                    <div class=col *ngIf="isSubscribedToTopic(topic)"><button class="btn btn-primary" (click)="unregister(topic)"> Unsubscribe</button></div>
+                    <div class=col *ngIf="!isSubscribedToTopic(topic)"><button class="btn btn-primary" (click)="register(topic)"> Subscribe</button></div>
+                    <div class="col"> <a href="topic/detail/{{topic.id}}">See details</a></div>
+                </div>
+            </div>
+
+            <div class="col-3 text-center justify-content-center d-flex align-items-end small"><a href=""><u>Report this topic</u></a></div>
+        </div>
+    </div>
+</div>

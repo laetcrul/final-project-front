@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EventModel } from 'src/app/models/event.model';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-create-event',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateEventComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
   }
 
+  public submit(event: any){
+    this.eventService.insert(event).subscribe(() => {});
+  }
 }

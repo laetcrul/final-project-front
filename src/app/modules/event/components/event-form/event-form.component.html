@@ -1,1 +1,74 @@
-<p>event-form works!</p>
+<div class="container d-flex flex-column">
+    <form (ngSubmit)="submit()" [formGroup]="eventForm" class="eventForm">
+        <div><h1>New Event</h1></div>
+
+        <div>
+          <label for="topic">Related topic</label>
+          <select class="form-control" id="topic" [formControl]="topicCtl">
+          <option *ngFor="let topic of topicList" [value]="topic.id">{{topic.name}}</option>
+          </select>
+        </div>
+
+        <div class = "form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" [formControl]="nameCtl">
+            <small class="text-danger" *ngIf="nameCtl.hasError('required')">Required</small>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" [formControl]="descriptionCtl"></textarea>
+        </div>
+
+        <div class = "form-group">
+          <label for="date">Date</label>
+          <input type="date" id="date" class="form-control" [formControl]="dateCtl">
+          <small class="text-danger" *ngIf="dateCtl.hasError('required')">Required</small>
+      </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <select class="form-control" id="address" [formControl]="addressCtl">
+              <option selected *ngIf="newAddress">{{newAddress.street}} {{newAddress.number}}, {{newAddress.postcode}} {{newAddress.city}} ({{newAddress.country}})</option>
+                    <option *ngFor="let address of addressList" [value]="address.id">{{address.street}} {{address.number}}, {{address.postcode}} {{address.city}} ({{address.country}})</option>
+            </select>
+        </div>
+
+        <div><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+            Create new Address
+            </button>
+        </div>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <app-address-form (addressEvent)="submitAddress($event)"></app-address-form>
+              </div>
+          </div>
+      </div>
+
+      <div class = "form-group">
+        <label for="image">Image link</label>
+        <input type="text" id="image" class="form-control" [formControl]="imageCtl">
+        <small class="text-danger" *ngIf="imageCtl.hasError('required')">Required</small>
+    </div>
+
+
+      <div class="form-check">
+          <input class="form-check-input" name="limitedTo" type="radio" id="all" value="all" [formControl]="limitedToCtl" checked>
+          <label for="all">Open to all</label>
+      </div>
+
+      <div class="form-check">
+          <input class="form-check-input" name="limitedTo" type="radio" id="team" value="team" [formControl]="limitedToCtl">
+          <label for="team">Team only</label>
+      </div>
+
+      <div class="form-check">
+          <input class="form-check-input" name="limitedTo" type="radio" id="department" value="department" [formControl]="limitedToCtl">
+          <label for="department">Department only</label>
+      </div>
+
+        <div><button [disabled]="eventForm.invalid"  type="submit" class="btn btn-primary" >Create</button></div>
+    </form>
+</div>

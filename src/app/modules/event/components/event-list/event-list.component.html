@@ -1,0 +1,21 @@
+<div class="container">
+    <div *ngFor="let event of eventList">
+        <div class="row flex justify-content-left margin-right-0 border-bottom border-secondary p-3" >
+            <div class="col-3 "><img src="{{event.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
+            <div *ngIf="event" class="row flex-column col-3">
+                <div class="col font-italic">{{event.name}}</div>
+                <div class="col">{{event.date}}</div>
+                <div *ngIf="event.address" class="col">{{event.address.city}}</div>
+            </div>
+            <div class="row flex-column col-3 actions text-center justify-content-center">
+                <div class="actions">
+                    <div class=col *ngIf="!isRegistered(event)"><button class="btn btn-primary" (click)="register(event)"> Register</button></div>
+                    <div class=col *ngIf="isRegistered(event)"><button class="btn btn-primary" (click)="unregister(event)"> Unregister</button></div>
+                    <div class="col" > <a href="#">See details</a></div>
+                    <div class="col"> <a href="topic/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
+                </div>
+            </div>
+          <div class="col-3 text-center justify-content-center d-flex align-items-end small"><a href=""><u>Report this event</u></a></div>
+        </div>
+    </div>
+</div>

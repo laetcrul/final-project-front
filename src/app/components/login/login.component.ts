@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
     if(this.userForm.valid)
     {
       const user = this.userForm.value as User;
-      this.authService.login(user).subscribe((success) => console.log(success));
+      this.authService.login(user).subscribe(() => {this.router.navigate(["home"])});
     }
-    this.router.navigate(["home"])
   }
 }
