@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/models/topic.model';
 import { User } from "../../../../models/user.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-topic-form',
@@ -16,9 +17,17 @@ export class TopicFormComponent implements OnInit {
   descriptionCtl: FormControl;
   imageCtl: FormControl;
 
-  @Output() topicEvent = new EventEmitter<Topic>();  
+  topic! : Topic;
 
-  constructor(private fb: FormBuilder, private topicService : TopicService) { 
+  @Output() topicEvent = new EventEmitter<Topic>();
+
+  constructor(private fb: FormBuilder, private topicService : TopicService, private route: ActivatedRoute) {
+    const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
+    topicService.getOneById(id).subscribe((topic) => {
+      this.topic = topic;
+      console.log(topic);
+    });
+
     this.nameCtl = fb.control(null,[Validators.required, Validators.maxLength(30)]);
     this.descriptionCtl = fb.control(null, Validators.maxLength(500));
     this.imageCtl = fb.control(null, Validators.maxLength(200));

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TopicService} from "../../../../services/topic.service";
 import {Topic} from "../../../../models/topic.model";
 import {User} from "../../../../models/user.model";
@@ -12,7 +12,7 @@ import {User} from "../../../../models/user.model";
 export class TopicDetailsComponent implements OnInit {
   topic!: Topic;
 
-  constructor(private route: ActivatedRoute, private topicService: TopicService) {
+  constructor(private route: ActivatedRoute, private topicService: TopicService, private router: Router) {
     const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
     topicService.getOneById(id).subscribe((topic) => this.topic = topic);
   }
@@ -32,5 +32,14 @@ export class TopicDetailsComponent implements OnInit {
 
   public unregister(topic: Topic){
     this.topicService.unregister(topic).subscribe(() => {this.ngOnInit();});
+  }
+
+  public edit(topic: Topic){
+    this.router.navigate(["topic/edit/" + topic.id]);
+  }
+
+  public isOwner(topic: Topic){
+    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    return user.id == topic.creator.id;
   }
 }

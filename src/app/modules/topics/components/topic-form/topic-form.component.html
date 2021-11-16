@@ -1,22 +1,21 @@
 <div class = "container">
     <form (ngSubmit)="submit()" [formGroup]="topicForm" class="topicForm">
-        <h1>New Topic</h1>
-
         <div class = "form-group">
-            <input type="text" id="name" class="form-control" placeholder="Name" [formControl]="nameCtl">
+            <input type="text" id="name" class="form-control" placeholder="Name" [formControl]="nameCtl" [value]="topic?.name">
             <small class="text-danger" *ngIf="nameCtl.hasError('required')">Required</small>
         </div>
 
         <div class = "form-group">
-            <input type="text" id="description" class="form-control" placeholder="Description"  [formControl]='descriptionCtl'>
+            <input type="text" id="description" class="form-control" placeholder="Description"  [formControl]='descriptionCtl' [value]="topic?.description">
             <small class="text-danger" *ngIf="descriptionCtl.hasError('maxlength')">Text is too long</small>
         </div>
 
         <div class = "form-group">
-            <input type="text" id="image" class="form-control" placeholder="Image"  [formControl]='imageCtl'>
+            <input type="text" id="image" class="form-control" placeholder="Image"  [formControl]='imageCtl' [value]="topic?.image">
             <small class="text-danger" *ngIf="imageCtl.hasError('maxlength')">Text is too long</small>
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="topicForm.invalid">Create</button>
+        <button *ngIf="!topic" type="submit" class="btn btn-primary" [disabled]="topicForm.invalid">Create</button>
+        <button *ngIf="topic" type="submit" class="btn btn-primary" [disabled]="topicForm.invalid">Save</button>
     </form>
 </div>

@@ -10,6 +10,7 @@ import {EventModule} from "../event/event.module";
 import { AllTopicsComponent } from './pages/all-topics/all-topics.component';
 import { SubscribedTopicsComponent } from './pages/subscribed-topics/subscribed-topics.component';
 import { MyTopicsComponent } from './pages/my-topics/my-topics.component';
+import { EditTopicComponent } from './pages/edit-topic/edit-topic.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MyTopicsComponent } from './pages/my-topics/my-topics.component';
     AllTopicsComponent,
     SubscribedTopicsComponent,
     MyTopicsComponent,
+    EditTopicComponent,
   ],
   imports: [
     CommonModule,
