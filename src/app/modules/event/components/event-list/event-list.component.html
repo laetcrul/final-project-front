@@ -10,7 +10,8 @@
             <div class="row flex-column col-3 actions text-center justify-content-center">
                 <div class="actions">
                     <div class=col *ngIf="!isRegistered(event)"><button class="btn btn-primary" (click)="register(event)"> Register</button></div>
-                    <div class=col *ngIf="isRegistered(event)"><button class="btn btn-primary" (click)="unregister(event)"> Unregister</button></div>
+                    <div class=col *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-primary" (click)="unregister(event)"> Unregister</button></div>
+                    <div class=col *ngIf="isOwner(event)"><button class="btn btn-primary"> Edit</button></div>
                     <div class="col" > <a href="#">See details</a></div>
                     <div class="col"> <a href="topic/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
                 </div>

@@ -27,10 +27,8 @@ export class TopicListComponent implements OnInit {
   }
 
   public refresh(){
-    console.log("filter = " + this.filter);
 
     if(this.filter != undefined){
-      console.log("entered switch");
       switch (this.filter){
         case 0: {
           this.topicService.getAllRegistered().subscribe(list => this.topicList = list);
@@ -44,24 +42,28 @@ export class TopicListComponent implements OnInit {
     }
 
     else {
-      console.log("bp 1");
       this.topicService.getAll().subscribe((topics: Topic[]) => this.topicList = topics);
     }
   }
 
   public isSubscribedToTopic(topic: Topic) : boolean{
-    console.log("bp 2");
     const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
 
     return topic.subscribedUsers.find((found) => found.id === user.id) != undefined;
   }
 
   public register(topic: Topic){
-    console.log("bp 3");
     this.topicService.register(topic).subscribe(() => {this.refresh();});
   }
 
   public unregister(topic: Topic){
     this.topicService.unregister(topic).subscribe(() => {this.refresh();});
+  }
+
+  public isOwner(topic: Topic){
+    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    if(user){
+      return user.id == topic.creator.id;
+    } else return false;
   }
 }

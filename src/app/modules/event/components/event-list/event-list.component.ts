@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { EventModel } from 'src/app/models/event.model';
 import { User } from 'src/app/models/user.model';
 import { EventService } from 'src/app/services/event.service';
+import {Topic} from "../../../../models/topic.model";
 
 @Component({
   selector: 'app-event-list',
@@ -64,5 +65,12 @@ export class EventListComponent implements OnInit {
 
   public unregister(event: EventModel){
     this.eventService.unregister(event).subscribe(() => {this.refresh();});
+  }
+
+  public isOwner(model: EventModel){
+    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    if(user){
+      return user.id == model.creator.id;
+    } else return false;
   }
 }
