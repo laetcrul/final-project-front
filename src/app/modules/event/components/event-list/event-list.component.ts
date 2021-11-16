@@ -12,28 +12,38 @@ import { EventService } from 'src/app/services/event.service';
 export class EventListComponent implements OnInit {
   eventList!: EventModel[];
 
-  @Input() filteredList!: EventModel[];
+  filter : number = -1;
 
   constructor(private eventService: EventService, private router: Router, private route: ActivatedRoute) {
+    this.route.data.subscribe((filter) => {
+      this.filter = filter.filter;
+    });
     this.refresh();
    }
 
   ngOnInit(): void {
-    console.log("onInit " + this.filteredList);
   }
 
   public refresh(){
-    console.log("filtered list =" + this.filteredList);
 
     const topicId = parseInt(this.route.snapshot.paramMap.get('id') || "");
-    console.log("filter = " + topicId);
+    console.log("filter = " + this.filter);
 
-    if(this.filteredList){
-      this.eventList = this.filteredList;
+    if(this.filter != undefined){
+      switch (this.filter){
+        case 0:{
+          this.eventService.getAllRegistered().subscribe(list => this.eventList = list);
+          break;
+        }
+
+        case 1:{
+          this.eventService.getAllCreated().subscribe(list => this.eventList = list);
+        }
+      }
     }
 
     else if(topicId){
-      console.log("topicId")
+      console.log("topicId = " + topicId);
       this.eventService.getAllByTopic(topicId).subscribe((res) => this.eventList = res);
     }
 

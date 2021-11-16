@@ -9,7 +9,7 @@ import { AddressFormComponent } from './components/address-form/address-form.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AllEventsComponent } from './pages/all-events/all-events.component';
 import { SubscribedEventsComponent } from './pages/subscribed-events/subscribed-events.component';
-import { ViewComponent } from './pages/view/view.component';
+import { MyEventsComponent } from './pages/my-events/my-events.component';
 
 
 
@@ -22,7 +22,7 @@ import { ViewComponent } from './pages/view/view.component';
     AddressFormComponent,
     AllEventsComponent,
     SubscribedEventsComponent,
-    ViewComponent,
+    MyEventsComponent,
   ],
   exports: [
     EventListComponent

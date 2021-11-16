@@ -29,4 +29,8 @@ export class EventService extends CRUD<EventModel>{
   public getAllRegistered(){
     return this.server.get<EventModel[]>("event/registered");
   }
+
+  public getAllCreated(){
+    return this.server.get<EventModel[]>("event/owned");
+  }
 }
