@@ -10,7 +10,7 @@
                 <div class="actions">
                     <div class=col *ngIf="isSubscribedToTopic(topic)"><button class="btn btn-primary" (click)="unregister(topic)"> Unsubscribe</button></div>
                     <div class=col *ngIf="!isSubscribedToTopic(topic)"><button class="btn btn-primary" (click)="register(topic)"> Subscribe</button></div>
-                    <div class="col"> <a href="topic/{{topic.id}}">See details</a></div>
+                    <div class="col"> <a href="topic/detail/{{topic.id}}">See details</a></div>
                 </div>
             </div>
 

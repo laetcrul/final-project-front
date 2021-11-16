@@ -14,6 +14,14 @@ export class TopicService extends CRUD<Topic>{
     super(server, config);
    }
 
+   public getAllCreated(){
+    return this.server.get<Topic[]>("topic/owned");
+   }
+
+   public getAllRegistered(){
+    return this.server.get<Topic[]>("topic/registered");
+   }
+
    public register(topic: Topic){
     return this.server.put<Topic>("topic/register/" + topic.id, topic);
   }

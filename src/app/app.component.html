@@ -10,11 +10,11 @@
 
 
         <li class="nav-item dropdown" *ngIf="isLoggedIn()">
-          <a class="nav-link dropdown-toggle" href="/topic/list" id="seeAll" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="seeAll" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             See All
           </a>
           <div class="dropdown-menu" aria-labelledby="seeAll">
-            <a class="dropdown-item" href="/topic/list">Topics</a>
+            <a class="dropdown-item" href="/topic/all">Topics</a>
             <a class="dropdown-item" href="/event/all">Events</a>
           </div>
         </li>
@@ -24,7 +24,7 @@
             See Followed
           </a>
           <div class="dropdown-menu" aria-labelledby="seeFollowed">
-            <a class="dropdown-item" href="#">Topics</a>
+            <a class="dropdown-item" href="/topic/subscribed">Topics</a>
             <a class="dropdown-item" href="/event/subscribed">Events</a>
           </div>
         </li>
@@ -44,7 +44,7 @@
             Manage
           </a>
           <div class="dropdown-menu" aria-labelledby="manage">
-            <a class="dropdown-item" href="#">My Topics</a>
+            <a class="dropdown-item" href="/topic/created">My Topics</a>
             <a class="dropdown-item" href="/event/created">My Events</a>
           </div>
         </li>
