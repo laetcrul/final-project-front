@@ -3,7 +3,7 @@ import { Topic } from 'src/app/models/topic.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { User } from "../../../../models/user.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-topic-list',
@@ -15,7 +15,7 @@ export class TopicListComponent implements OnInit {
   filter : number = -1;
 
 
-  constructor(private topicService: TopicService, private authService: AuthService, private route: ActivatedRoute) {
+  constructor(private topicService: TopicService, private authService: AuthService, private route: ActivatedRoute, private router: Router) {
 
     this.route.data.subscribe((filter) => {
       this.filter = filter.filter;
@@ -65,5 +65,9 @@ export class TopicListComponent implements OnInit {
     if(user){
       return user.id == topic.creator.id;
     } else return false;
+  }
+
+  public seeDetails(topic: Topic){
+    this.router.navigate(["/topic/detail/" + topic.id]);
   }
 }

@@ -11,12 +11,17 @@
                 <div class="actions">
                     <div class=col *ngIf="!isRegistered(event)"><button class="btn btn-primary" (click)="register(event)"> Register</button></div>
                     <div class=col *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-primary" (click)="unregister(event)"> Unregister</button></div>
-                    <div class=col *ngIf="isOwner(event)"><button class="btn btn-primary"> Edit</button></div>
-                    <div class="col" > <a href="#">See details</a></div>
+                    <div class=col *ngIf="isOwner(event)">
+                      <button class="btn btn-primary" (click)="seeDetails(event)">Open</button></div>
+
+
+                    <div class="col" *ngIf="!isOwner(event)"> <a href="#">See details</a></div>
                     <div class="col"> <a href="topic/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
                 </div>
             </div>
-          <div class="col-3 text-center justify-content-center d-flex align-items-end small"><a href=""><u>Report this event</u></a></div>
+          <div class="col text-center justify-content-center d-flex align-items-end small" *ngIf="!isOwner(event)"><a href=""><u>Report this event</u></a></div>
         </div>
     </div>
 </div>
+
+

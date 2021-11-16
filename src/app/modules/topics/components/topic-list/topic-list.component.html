@@ -10,22 +10,22 @@
                 <div class="actions">
                   <div class=col *ngIf="!isSubscribedToTopic(topic)"><button class="btn btn-primary" (click)="register(topic)"> Subscribe</button></div>
                   <div class=col *ngIf="isSubscribedToTopic(topic) && !isOwner(topic)"><button class="btn btn-primary" (click)="unregister(topic)"> Unsubscribe</button></div>
-                  <div class=col *ngIf="isOwner(topic)"><button class="btn btn-primary"> Edit</button></div>
+                  <div class=col *ngIf="isOwner(topic)"><button class="btn btn-primary" (click)="seeDetails(topic)">Open</button></div>
 
-                    <div class="col"> <a href="topic/detail/{{topic.id}}">See details</a></div>
+                    <div class="col" *ngIf="!isOwner(topic)"> <a href="topic/detail/{{topic.id}}">See details</a></div>
                 </div>
             </div>
 
-            <div *ngIf="isOwner(topic)" class="row flex-column col-3 actions text-center justify-content-center">
-              <div>
-                <span class="col small">
+            <div class="row flex-column col-3 actions text-center justify-content-center pt-4">
+              <div *ngIf="isOwner(topic)" class="col text-center justify-content-center d-flex align-items-start small" >
+                <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
                     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
                   </svg>
                   Owned
                 </span>
               </div>
-            <div class="col text-center justify-content-center d-flex align-items-end small"><a href=""><u>Report this topic</u></a></div>
+            <div class="col text-center justify-content-center d-flex align-items-end small" *ngIf="!isOwner(topic)"><a href=""><u>Report this topic</u></a></div>
           </div>
         </div>
     </div>

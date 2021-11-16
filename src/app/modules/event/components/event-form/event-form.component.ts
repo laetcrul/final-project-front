@@ -29,6 +29,7 @@ export class EventFormComponent implements OnInit {
 
   @Output() eventEvent = new EventEmitter<EventModel>();
   @Input() address! : Address;
+  @Input() eventToEdit! : EventModel;
 
 
   constructor(private fb: FormBuilder,
@@ -65,6 +66,8 @@ export class EventFormComponent implements OnInit {
       limitedTo: this.limitedToCtl,
       topic: this.topicCtl,
     });
+
+    console.log(this.eventToEdit);
    }
 
   ngOnInit(): void {
@@ -72,7 +75,6 @@ export class EventFormComponent implements OnInit {
 
   public submitAddress(newAddress : any){
     this.newAddress = newAddress as Address;
-    console.log(this.newAddress);
     this.addressList.push(this.newAddress);
   }
 

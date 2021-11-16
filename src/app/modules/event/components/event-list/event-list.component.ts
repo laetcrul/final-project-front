@@ -73,4 +73,8 @@ export class EventListComponent implements OnInit {
       return user.id == model.creator.id;
     } else return false;
   }
+
+  public seeDetails(event: EventModel){
+    this.router.navigate(["/event/detail/" + event.id]);
+  }
 }

@@ -16,7 +16,6 @@ export class CreateTopicComponent implements OnInit {
   }
 
   submit(topic: Topic){
-    this.topicService.insert(topic).subscribe(() => {});
-    this.router.navigate(["topic/created"]);
+    this.topicService.insert(topic).subscribe(() => {this.router.navigate(["topic/created"]);});
   }
 }
