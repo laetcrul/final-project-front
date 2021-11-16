@@ -1,11 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { EventListComponent } from './components/event-list/event-list.component';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
+import {AllEventsComponent} from "./pages/all-events/all-events.component";
+import {SubscribedEventsComponent} from "./pages/subscribed-events/subscribed-events.component";
 
 const routes: Routes = [
-    {path: 'list', component: EventListComponent},
-    {path: 'create', component: CreateEventComponent}
+    {path: 'all', component: AllEventsComponent},
+    {path: 'create', component: CreateEventComponent},
+    {path: 'subscribed', component: SubscribedEventsComponent},
 ];
 
 @NgModule({

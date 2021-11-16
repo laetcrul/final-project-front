@@ -7,6 +7,9 @@ import { EventFormComponent } from './components/event-form/event-form.component
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AllEventsComponent } from './pages/all-events/all-events.component';
+import { SubscribedEventsComponent } from './pages/subscribed-events/subscribed-events.component';
+import { ViewComponent } from './pages/view/view.component';
 
 
 
@@ -17,6 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EventFormComponent,
     CreateEventComponent,
     AddressFormComponent,
+    AllEventsComponent,
+    SubscribedEventsComponent,
+    ViewComponent,
   ],
   exports: [
     EventListComponent

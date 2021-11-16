@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { EventModel } from 'src/app/models/event.model';
 import { User } from 'src/app/models/user.model';
 import { EventService } from 'src/app/services/event.service';
-import {Topic} from "../../../../models/topic.model";
 
 @Component({
   selector: 'app-event-list',
@@ -13,25 +12,34 @@ import {Topic} from "../../../../models/topic.model";
 export class EventListComponent implements OnInit {
   eventList!: EventModel[];
 
+  @Input() filteredList!: EventModel[];
+
   constructor(private eventService: EventService, private router: Router, private route: ActivatedRoute) {
     this.refresh();
    }
 
   ngOnInit(): void {
+    console.log("onInit " + this.filteredList);
   }
 
   public refresh(){
+    console.log("filtered list =" + this.filteredList);
 
     const topicId = parseInt(this.route.snapshot.paramMap.get('id') || "");
     console.log("filter = " + topicId);
 
-    if(topicId){
+    if(this.filteredList){
+      this.eventList = this.filteredList;
+    }
+
+    else if(topicId){
+      console.log("topicId")
       this.eventService.getAllByTopic(topicId).subscribe((res) => this.eventList = res);
     }
+
     else{
       this.eventService.getAll().subscribe((events: EventModel[]) => this.eventList = events);
     }
-
   }
 
   public isRegistered(event: EventModel) : boolean{
