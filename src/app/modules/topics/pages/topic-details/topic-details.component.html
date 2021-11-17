@@ -4,13 +4,15 @@
         <div class="col-12 text-center">
           <img class="img-fluid px-500-0" width="600"
                height="337"
-               style="width: 100%; height: 30vh; object-fit: cover;" src="{{topic.image}}">
+               style="width: 100%; height: 30vh; object-fit: cover;"
+               alt="img"
+               src="{{topic.image}}">
           <div><h2 class="py-3 text-white bg-dark">{{topic.name}}</h2></div>
         </div>
       </div>
   </header>
 
-  <body class="d-flex flex-column align-items-center">
+  <div class="d-flex flex-column align-items-center">
       <div class="border-bottom border-secondary w-100 pl-2 py-4 mb-5 text-center">
       <p>{{topic.description}}</p>
       </div>
@@ -18,12 +20,13 @@
         <div class="w-50" *ngIf="isSubscribedToTopic(topic) && !isOwner(topic)"><button class="btn btn-secondary btn-lg w-100" (click)="unregister(topic)"> Unsubscribe</button></div>
         <div class="w-50" *ngIf="!isSubscribedToTopic(topic) && !isOwner(topic)"><button class="btn btn-primary btn-lg w-100" (click)="register(topic)"> Subscribe</button></div>
         <div class="w-50" *ngIf="isOwner(topic)"><button class="btn btn-primary btn-lg w-100" (click)="edit(topic)"> Edit</button></div>
+        <div class="w-50" *ngIf="isOwner(topic)"><button class="btn btn-danger btn-lg w-100" (click)="delete(topic)"> Delete</button></div>
       </div>
 
       <div class="d-flex w-100 justify-content-center align-items-center">
-        <span class="font-italic pr-4">Subscribed members:</span>
-        <img class="rounded-circle" *ngFor="let user of topic.subscribedUsers | slice:0:8;" src="{{user.image}}" alt="img" style="width: 5%; height:5vh; object-fit: cover;">
-        <a class=" pl-2 text-black-50 pl-4"><u>See all</u></a>
+        <span class="font-italic pr-4" *ngIf="topic.subscribedUsers.length > 0">Subscribed members:</span>
+        <img class="rounded-circle" *ngFor="let user of topic.subscribedUsers | slice:0:4;" src="{{user.image}}" alt="img" style="width: 5%; height:5vh; object-fit: cover;">
+        <a class=" pl-2 text-black-50 pl-4" *ngIf="topic.subscribedUsers.length > 5"><u>See all</u></a>
       </div>
 
       <div class="border-bottom border-secondary w-100 pl-2 pt-5  text-center">
@@ -32,5 +35,5 @@
 
   <app-event-list></app-event-list>
 
-  </body>
+  </div>
 </div>

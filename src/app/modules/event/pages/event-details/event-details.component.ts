@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { EventModel } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/event.service';
 import {User} from "../../../../models/user.model";
@@ -13,7 +13,8 @@ export class EventDetailsComponent implements OnInit {
   event! : EventModel;
   constructor(
     private route: ActivatedRoute,
-    private eventService: EventService) {
+    private eventService: EventService,
+    private router: Router) {
       const id = parseInt(this.route.snapshot.paramMap.get('id') || '', undefined);
       console.log(id);
       eventService.getOneById(id).subscribe((event: EventModel) => this.event = event);
@@ -45,5 +46,8 @@ export class EventDetailsComponent implements OnInit {
 
   }
 
-
+  public delete(event: EventModel){
+    alert("Delete this topic?");
+    this.eventService.delete(event.id).subscribe(() => this.router.navigate(["event/created"]));
+  }
 }

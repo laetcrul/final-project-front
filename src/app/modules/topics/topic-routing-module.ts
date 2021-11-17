@@ -13,9 +13,7 @@ const routes: Routes = [
     {path: 'create', component: CreateTopicComponent},
     {path: 'subscribed', component: SubscribedTopicsComponent, data: {filter: FilterEnum.subscribed}},
     {path: 'created', component: MyTopicsComponent, data: {filter: FilterEnum.created}},
-    {path: 'detail', children: [ {
-      path: ':id', component: TopicDetailsComponent}
-    ]},
+    {path: 'detail/:id', component: TopicDetailsComponent},
     {path: 'edit/:id', component: EditTopicComponent}
 ];
 

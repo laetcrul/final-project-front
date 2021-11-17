@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {TopicService} from "../../../../services/topic.service";
 import {Topic} from "../../../../models/topic.model";
@@ -41,5 +41,9 @@ export class TopicDetailsComponent implements OnInit {
   public isOwner(topic: Topic){
     const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
     return user.id == topic.creator.id;
+  }
+  public delete(topic: Topic){
+    alert("Delete this topic?");
+    this.topicService.delete(topic.id).subscribe(() => this.router.navigate(["topic/created"]));
   }
 }

@@ -49,7 +49,7 @@ export class EventFormComponent implements OnInit {
       });
     });
 
-    this.nameCtl = fb.control(null, [Validators.required, Validators.maxLength(50)]),
+    this.nameCtl = fb.control(null, [Validators.required, Validators.maxLength(50)]);
     this.descriptionCtl = fb.control(null,  Validators.maxLength(500));
     this.dateCtl = fb.control(null, Validators.required);
     this.imageCtl = fb.control(null, Validators.maxLength(200));
@@ -111,8 +111,10 @@ export class EventFormComponent implements OnInit {
       event.address = undefined;
     }
 
-    this.eventService.insert(event).subscribe(() => {
-      alert("Event was successfully created");
-    });
+    this.eventEvent.emit(event);
+
+    // this.eventService.insert(event).subscribe(() => {
+    //   alert("Event was successfully created");
+    // });
   }
 }

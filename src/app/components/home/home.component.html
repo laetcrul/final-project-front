@@ -1,12 +1,12 @@
 <div class="container">
-    <img src="assets/home_image.jpg" class="img-fluid">
-    <body>
+    <img src="assets/home_image.jpg" class="img-fluid" alt="img">
+    <div>
         <div class = "title">
             <h1>Let's Afterwork!</h1>
         </div>
         <div class ="login">
         <a *ngIf="!isLoggedIn()" type="button" class="btn btn-primary" href="/login"> Log in</a>
-        <a *ngIf="isLoggedIn()" type="button" class="btn btn-primary" href="/event/list"> See events</a>
+        <a *ngIf="isLoggedIn()" type="button" class="btn btn-primary" href="/event/all"> See events</a>
         </div>
-    </body>
+    </div>
 </div>
