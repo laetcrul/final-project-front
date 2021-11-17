@@ -7,6 +7,7 @@ import {FilterEnum} from "./filter.enum";
 import {MyEventsComponent} from "./pages/my-events/my-events.component";
 import {TopicDetailsComponent} from "../topics/pages/topic-details/topic-details.component";
 import {EventDetailsComponent} from "./pages/event-details/event-details.component";
+import {EditEventComponent} from "./pages/edit-event/edit-event.component";
 
 const routes: Routes = [
     {path: 'all', component: AllEventsComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
     {path: 'detail', children: [ {
       path: ':id', component: EventDetailsComponent}
       ]},
+    {path: 'edit/:id', component: EditEventComponent},
 ];
 
 @NgModule({

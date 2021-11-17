@@ -30,11 +30,13 @@ export class EventDetailsComponent implements OnInit {
     return event.participants.find((found) => found.id === user.id) != undefined;
   }
   public register(event: EventModel){
-    this.eventService.register(event).subscribe(() => {this.ngOnInit();});
+    let url = this.router.url.substr(1).toString();
+    console.log(url);
+    this.eventService.register(event).subscribe(() => {window.location.reload();});
   }
 
   public unregister(event: EventModel){
-    this.eventService.unregister(event).subscribe(() => {this.ngOnInit();});
+    this.eventService.unregister(event).subscribe(() => {window.location.reload();});
   }
 
   public isOwner(event: EventModel){
@@ -43,11 +45,11 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public edit(event: EventModel){
-
+    this.router.navigate(["event/edit/" + event.id]);
   }
 
   public delete(event: EventModel){
-    alert("Delete this topic?");
+    confirm("Delete this topic?");
     this.eventService.delete(event.id).subscribe(() => this.router.navigate(["event/created"]));
   }
 }

@@ -1,34 +1,32 @@
 <div class="container d-flex flex-column p-4">
     <form (ngSubmit)="submit()" [formGroup]="eventForm" class="eventForm">
-        <div><h1>New Event</h1></div>
-
         <div>
           <label for="topic">Related topic</label>
-          <select class="form-control" id="topic" [formControl]="topicCtl">
+          <select class="form-control" id="topic" [formControl]="topicCtl" [value]="event?.topic?.id">
           <option *ngFor="let topic of topicList" [value]="topic.id">{{topic.name}}</option>
           </select>
         </div>
 
         <div class = "form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" [formControl]="nameCtl">
+            <input type="text" id="name" class="form-control" [formControl]="nameCtl" [value]="event?.name">
             <small class="text-danger" *ngIf="nameCtl.hasError('required')">Required</small>
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" [formControl]="descriptionCtl"></textarea>
+            <textarea class="form-control" id="description" rows="3" [formControl]="descriptionCtl" [value]="event?.description"></textarea>
         </div>
 
         <div class = "form-group">
           <label for="date">Date</label>
-          <input type="date" id="date" class="form-control" [formControl]="dateCtl">
+          <input type="date" id="date" class="form-control" [formControl]="dateCtl" [value]="event?.date">
           <small class="text-danger" *ngIf="dateCtl.hasError('required')">Required</small>
       </div>
 
         <div class="form-group">
             <label for="address">Address</label>
-            <select class="form-control" id="address" [formControl]="addressCtl">
+            <select class="form-control" id="address" [formControl]="addressCtl" [value]="event?.address?.id">
               <option selected *ngIf="newAddress">{{newAddress.street}} {{newAddress.number}}, {{newAddress.postcode}} {{newAddress.city}} ({{newAddress.country}})</option>
                     <option *ngFor="let address of addressList" [value]="address.id">{{address.street}} {{address.number}}, {{address.postcode}} {{address.city}} ({{address.country}})</option>
             </select>
@@ -49,7 +47,7 @@
 
       <div class = "form-group">
         <label for="image">Image link</label>
-        <input type="text" id="image" class="form-control" [formControl]="imageCtl">
+        <input type="text" id="image" class="form-control" [formControl]="imageCtl" [value]="event?.image">
         <small class="text-danger" *ngIf="imageCtl.hasError('required')">Required</small>
     </div>
 
@@ -69,6 +67,7 @@
           <label for="department">Department only</label>
       </div>
 
-        <div><button [disabled]="eventForm.invalid"  type="submit" class="btn btn-primary" >Create</button></div>
+        <div><button *ngIf="!event" [disabled]="eventForm.invalid"  type="submit" class="btn btn-primary" >Create</button></div>
+        <div><button *ngIf="event" [disabled]="eventForm.invalid"  type="submit" class="btn btn-primary" >Save</button></div>
     </form>
 </div>

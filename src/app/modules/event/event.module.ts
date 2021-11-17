@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AllEventsComponent } from './pages/all-events/all-events.component';
 import { SubscribedEventsComponent } from './pages/subscribed-events/subscribed-events.component';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
+import { EditEventComponent } from './pages/edit-event/edit-event.component';
 
 
 
@@ -23,6 +24,7 @@ import { MyEventsComponent } from './pages/my-events/my-events.component';
     AllEventsComponent,
     SubscribedEventsComponent,
     MyEventsComponent,
+    EditEventComponent,
   ],
   exports: [
     EventListComponent

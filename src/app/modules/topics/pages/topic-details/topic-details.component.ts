@@ -27,11 +27,11 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   public register(topic: Topic){
-    this.topicService.register(topic).subscribe(() => {this.ngOnInit();});
+    this.topicService.register(topic).subscribe(() => {window.location.reload();});
   }
 
   public unregister(topic: Topic){
-    this.topicService.unregister(topic).subscribe(() => {this.ngOnInit();});
+    this.topicService.unregister(topic).subscribe(() => {window.location.reload();});
   }
 
   public edit(topic: Topic){
