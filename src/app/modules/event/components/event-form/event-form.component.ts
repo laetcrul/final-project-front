@@ -38,12 +38,6 @@ export class EventFormComponent implements OnInit {
               private eventService: EventService,
               private topicService: TopicService,
               private route: ActivatedRoute) {
-    const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
-    if (!isNaN(id)){
-      eventService.getOneById(id).subscribe((event) => {
-        this.event = event;
-      });
-    }
 
     this.addressService.getAll().subscribe((res : Address[]) => this.addressList = res);
     this.topicService.getAll().subscribe((res) => {
@@ -57,6 +51,14 @@ export class EventFormComponent implements OnInit {
         } return 0;
       });
     });
+
+    const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
+    if (!isNaN(id)){
+      eventService.getOneById(id).subscribe((event) => {
+        this.event = event;
+        console.log(event);
+      });
+    }
 
     this.nameCtl = fb.control([this.event?.name], [Validators.required, Validators.maxLength(50)]);
     this.descriptionCtl = fb.control([this.event?.description],  Validators.maxLength(500));

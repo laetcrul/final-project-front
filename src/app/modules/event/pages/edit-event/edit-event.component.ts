@@ -21,6 +21,7 @@ export class EditEventComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   public submit(event : EventModel){

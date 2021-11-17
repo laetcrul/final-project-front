@@ -1,7 +1,11 @@
 <div class="container">
     <div *ngFor="let event of eventList">
-        <div class="row flex justify-content-left margin-right-0 border-bottom border-secondary p-3" >
-            <div class="col-3 "><img src="{{event.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
+
+        <div class="row flex justify-content-left margin-right-0 pt-0 border-bottom border-secondary p-3" >
+            <div class="col-3 ">
+              <div class="small font-italic font-weight-bold" *ngIf="event.limitedToDepartment"><span>Department only</span></div>
+              <div class="small font-italic font-weight-bold" *ngIf="event.limitedToTeam"><span>Team only</span></div>
+              <div class="small font-italic font-weight-bold" *ngIf="!event.limitedToDepartment && !event.limitedToTeam"><span>Open to all!</span></div><img src="{{event.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
             <div *ngIf="event" class="row flex-column col-3">
                 <div class="col font-italic">{{event.name}}</div>
                 <div class="col">{{event.date}}</div>
@@ -13,7 +17,6 @@
                     <div class=col *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-secondary w-100" (click)="unregister(event)"> Unregister</button></div>
                     <div class=col *ngIf="isOwner(event)">
                       <button class="btn btn-primary" (click)="seeDetails(event)">Open</button></div>
-
 
                     <div class="col" *ngIf="!isOwner(event)"> <a href="/event/detail/{{event.id}}">See details</a></div>
                     <div class="col"> <a href="topic/detail/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
