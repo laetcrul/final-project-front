@@ -3,8 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { EventModel } from 'src/app/models/event.model';
 import { User } from 'src/app/models/user.model';
 import { EventService } from 'src/app/services/event.service';
-import {Topic} from "../../../../models/topic.model";
-import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-event-list',
@@ -15,6 +13,7 @@ export class EventListComponent implements OnInit {
   eventList: EventModel[] = [];
   pathFilter : number | undefined;
   inputFilter : number = -1;
+  topicPresent: boolean = false;
 
   constructor(private eventService: EventService, private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe((filter) => {
@@ -29,8 +28,9 @@ export class EventListComponent implements OnInit {
   public refresh(){
 
     const topicId = parseInt(this.route.snapshot.paramMap.get('id') || "");
+    console.log(topicId);
 
-    if(this.pathFilter == undefined){
+    if(this.pathFilter == undefined && !topicId){
       this.getAll();
     }
 
@@ -38,12 +38,12 @@ export class EventListComponent implements OnInit {
       this.getAllSubscribed();
     }
 
-    if(this.pathFilter ==1){
+    if(this.pathFilter == 1){
       this.getAllCreated();
     }
 
     if (topicId){
-      this.eventService.getAllByTopic(topicId).subscribe(events => this.eventList = events);
+      this.getAllByTopic(topicId);
     }
   }
 
@@ -87,6 +87,20 @@ export class EventListComponent implements OnInit {
       })
     }
     else this.eventService.getAll().subscribe(events => this.eventList = events);
+  }
+
+  public getAllByTopic(topicId : number){
+    if(this.inputFilter == 1) {
+      this.eventService.getAllByTopic(topicId).subscribe((events) => {
+        this.eventList = this.filterByTeam(events);
+      })
+    }
+    else if(this.inputFilter == 2){
+    this.eventService.getAllByTopic(topicId).subscribe((events) => {
+        this.eventList= this.filterByDepartment(events);
+      })
+    }
+    else this.eventService.getAllByTopic(topicId).subscribe(events => this.eventList = events);
   }
 
   public filterByTeam(list: EventModel[]){

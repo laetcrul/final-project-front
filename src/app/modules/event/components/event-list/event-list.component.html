@@ -26,7 +26,7 @@
                       <button *ngIf="isOwner(event)" class="btn btn-primary w-100" (click)="seeDetails(event)">Open</button>
                       <button *ngIf="!isOwner(event)" class="btn btn-info w-100 mt-1" (click)="seeDetails(event)">See details</button></div>
 
-                    <div class="col"> <a href="topic/detail/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
+                    <div class="col" *ngIf="topicPresent"> <a href="topic/detail/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
                 </div>
             </div>
 
@@ -39,9 +39,10 @@
                   Owned
                 </span>
             </div>
-            <div class="col text-center justify-content-center d-flex align-items-end small" *ngIf="!isOwner(event)"><a href=""><u>Report this event</u></a></div>
+            <div class="col text-center justify-content-center d-flex align-items-end small" *ngIf="!isOwner(event)">
+              <a href=""  class="text-danger font-italic"><u>Report this event</u></a>
+            </div>
           </div>
-
         </div>
     </div>
 </div>
