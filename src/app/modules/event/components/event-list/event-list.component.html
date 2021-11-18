@@ -1,4 +1,11 @@
 <div class="container">
+  <div>
+    <select #element class="form-control" (input)="onChange(element)">
+      <option value="0">Filter by...</option>
+      <option value="1">Team Only</option>
+      <option value="2">Department Only</option>
+    </select>
+  </div>
     <div *ngFor="let event of eventList">
 
         <div class="row flex justify-content-left margin-right-0 pt-0 border-bottom border-secondary p-3" >
@@ -15,10 +22,12 @@
                 <div class="actions">
                     <div class=col *ngIf="!isRegistered(event)"><button class="btn btn-primary w-100" (click)="register(event)"> Register</button></div>
                     <div class=col *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-secondary w-100" (click)="unregister(event)"> Unregister</button></div>
-                    <div class=col *ngIf="isOwner(event)">
-                      <button class="btn btn-primary" (click)="seeDetails(event)">Open</button></div>
+                    <div class=col>
+                      <button *ngIf="isOwner(event)" class="btn btn-primary w-100" (click)="seeDetails(event)">Open</button>
+                      <button *ngIf="!isOwner(event)" class="btn btn-info w-100 mt-2" (click)="seeDetails(event)">See details</button></div>
 
-                    <div class="col" *ngIf="!isOwner(event)"> <a href="/event/detail/{{event.id}}">See details</a></div>
+<!--                    <div class="col" *ngIf="!isOwner(event)"> <a href="/event/detail/{{event.id}}">See details</a></div>-->
+
                     <div class="col"> <a href="topic/detail/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
                 </div>
             </div>

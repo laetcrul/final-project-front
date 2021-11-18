@@ -16,13 +16,10 @@ export class EventDetailsComponent implements OnInit {
     private eventService: EventService,
     private router: Router) {
       const id = parseInt(this.route.snapshot.paramMap.get('id') || '', undefined);
-      console.log(id);
       eventService.getOneById(id).subscribe((event: EventModel) => this.event = event);
    }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   public isRegistered(event: EventModel) : boolean{
     const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
@@ -30,8 +27,6 @@ export class EventDetailsComponent implements OnInit {
     return event.participants.find((found) => found.id === user.id) != undefined;
   }
   public register(event: EventModel){
-    let url = this.router.url.substr(1).toString();
-    console.log(url);
     this.eventService.register(event).subscribe(() => {window.location.reload();});
   }
 
