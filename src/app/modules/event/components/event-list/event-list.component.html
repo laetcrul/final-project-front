@@ -24,9 +24,7 @@
                     <div class=col *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-secondary w-100" (click)="unregister(event)"> Unregister</button></div>
                     <div class=col>
                       <button *ngIf="isOwner(event)" class="btn btn-primary w-100" (click)="seeDetails(event)">Open</button>
-                      <button *ngIf="!isOwner(event)" class="btn btn-info w-100 mt-2" (click)="seeDetails(event)">See details</button></div>
-
-<!--                    <div class="col" *ngIf="!isOwner(event)"> <a href="/event/detail/{{event.id}}">See details</a></div>-->
+                      <button *ngIf="!isOwner(event)" class="btn btn-info w-100 mt-1" (click)="seeDetails(event)">See details</button></div>
 
                     <div class="col"> <a href="topic/detail/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
                 </div>

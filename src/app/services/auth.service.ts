@@ -19,7 +19,6 @@ export class AuthService {
         sessionStorage.setItem('user', JSON.stringify(user));
         this.isLoggedIn = true;
       }
-      console.log(sessionStorage.getItem('user'))
       return this.isLoggedIn;
     }));
   }
