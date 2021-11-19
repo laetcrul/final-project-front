@@ -1,13 +1,19 @@
 <div class="container">
-  <div >
-    <select #element class="form-control w-25" (input)="onChange(element)">
-      <option value="0">Filter by...</option>
-      <option value="1">Team Only</option>
-      <option value="2">Department Only</option>
-    </select>
+  <div class="d-flex">
+    <div>
+      <input type="text" placeholder="Search..." id="search-text" class="form-control" [(ngModel)]="searchText">
+    </div>
+    <div >
+      <select #element class="form-control" (input)="onChange(element)">
+        <option value="0">Filter by...</option>
+        <option value="1">Team Only</option>
+        <option value="2">Department Only</option>
+      </select>
+    </div>
   </div>
-    <div *ngFor="let event of eventList">
 
+
+    <div *ngFor="let event of eventList | appFilter: searchText">
         <div class="row flex justify-content-left margin-right-0 pt-0 border-bottom border-secondary p-3" >
             <div class="col-3 ">
               <div class="small font-italic font-weight-bold" *ngIf="event.limitedToDepartment"><span>Department only</span></div>

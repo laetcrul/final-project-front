@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {EventModel} from "../../../../models/event.model";
-import {Topic} from "../../../../models/topic.model";
 import {EventService} from "../../../../services/event.service";
 import {TopicService} from "../../../../services/topic.service";
 import {User} from "../../../../models/user.model";
@@ -16,6 +14,7 @@ export class UserListComponent implements OnInit {
   element: number | undefined;
   topicId: number | undefined;
   eventId: number | undefined;
+  searchText = "";
 
   userList : User[] = [];
 

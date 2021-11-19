@@ -1,5 +1,9 @@
 <div class="container">
-  <div *ngFor="let user of userList">
+  <div class="form-group">
+    <input type="text" placeholder="Search..." id="search-text" class="form-control" [(ngModel)]="searchText">
+  </div>
+
+  <div *ngFor="let user of userList|appFilter : searchText">
     <div class="row info flex justify-content-left margin-right-0 border-bottom border-secondary p-3" >
       <div class="col-2"><img class="rounded-circle" src="{{user.image}}" alt="img" style="width: 10vh; height: 10vh; object-fit: cover;"></div>
       <div class="col-6 text-center">{{user.username}}</div>
@@ -9,7 +13,6 @@
           <div class="col" ><button class="btn btn-info w-100 mt-1" >See details</button></div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

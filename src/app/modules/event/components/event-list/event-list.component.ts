@@ -14,6 +14,7 @@ export class EventListComponent implements OnInit {
   pathFilter : number | undefined;
   inputFilter : number = -1;
   topicPresent: boolean = false;
+  searchText = "";
 
   constructor(private eventService: EventService, private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe((filter) => {
