@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { EventModel } from 'src/app/models/event.model';
 import { User } from 'src/app/models/user.model';
@@ -10,16 +10,17 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
-  eventList!: EventModel[];
-
-  filter : number = -1;
+  eventList: EventModel[] = [];
+  pathFilter : number | undefined;
+  inputFilter : number = -1;
+  topicPresent: boolean = false;
 
   constructor(private eventService: EventService, private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe((filter) => {
-      this.filter = filter.filter;
+      this.pathFilter = filter.filter;
     });
     this.refresh();
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -27,29 +28,87 @@ export class EventListComponent implements OnInit {
   public refresh(){
 
     const topicId = parseInt(this.route.snapshot.paramMap.get('id') || "");
-    console.log("filter = " + this.filter);
+    console.log(topicId);
 
-    if(this.filter != undefined){
-      switch (this.filter){
-        case 0:{
-          this.eventService.getAllRegistered().subscribe(list => this.eventList = list);
-          break;
-        }
-
-        case 1:{
-          this.eventService.getAllCreated().subscribe(list => this.eventList = list);
-        }
-      }
+    if(this.pathFilter == undefined && !topicId){
+      this.getAll();
     }
 
-    else if(topicId){
-      console.log("topicId = " + topicId);
-      this.eventService.getAllByTopic(topicId).subscribe((res) => this.eventList = res);
+    if(this.pathFilter == 0){
+      this.getAllSubscribed();
     }
 
-    else{
-      this.eventService.getAll().subscribe((events: EventModel[]) => this.eventList = events);
+    if(this.pathFilter == 1){
+      this.getAllCreated();
     }
+
+    if (topicId){
+      this.getAllByTopic(topicId);
+    }
+  }
+
+  public getAllCreated(){
+    if(this.inputFilter == 1) {
+      this.eventService.getAllCreated().subscribe((events) => {
+        this.eventList = this.filterByTeam(events);
+      })
+    }
+    else if(this.inputFilter == 2){
+      this.eventService.getAllCreated().subscribe((events) => {
+        this.eventList= this.filterByDepartment(events);
+      })
+    }
+    else this.eventService.getAllCreated().subscribe(events => this.eventList = events);
+  }
+
+  public getAllSubscribed(){
+    if(this.inputFilter == 1) {
+      this.eventService.getAllRegistered().subscribe((events) => {
+        this.eventList = this.filterByTeam(events);
+      })
+    }
+    else if(this.inputFilter == 2){
+      this.eventService.getAllRegistered().subscribe((events) => {
+        this.eventList= this.filterByDepartment(events);
+      })
+    }
+    else this.eventService.getAllRegistered().subscribe(events => this.eventList = events);
+  }
+
+  public getAll(){
+    if(this.inputFilter == 1) {
+      this.eventService.getAll().subscribe((events) => {
+        this.eventList = this.filterByTeam(events);
+      })
+    }
+    else if(this.inputFilter == 2){
+      this.eventService.getAll().subscribe((events) => {
+        this.eventList= this.filterByDepartment(events);
+      })
+    }
+    else this.eventService.getAll().subscribe(events => this.eventList = events);
+  }
+
+  public getAllByTopic(topicId : number){
+    if(this.inputFilter == 1) {
+      this.eventService.getAllByTopic(topicId).subscribe((events) => {
+        this.eventList = this.filterByTeam(events);
+      })
+    }
+    else if(this.inputFilter == 2){
+    this.eventService.getAllByTopic(topicId).subscribe((events) => {
+        this.eventList= this.filterByDepartment(events);
+      })
+    }
+    else this.eventService.getAllByTopic(topicId).subscribe(events => this.eventList = events);
+  }
+
+  public filterByTeam(list: EventModel[]){
+    return list.filter(event => event.limitedToTeam);
+  }
+
+  public filterByDepartment(list: EventModel[]){
+    return list.filter(event => event.limitedToDepartment);
   }
 
   public isRegistered(event: EventModel) : boolean{
@@ -64,5 +123,22 @@ export class EventListComponent implements OnInit {
 
   public unregister(event: EventModel){
     this.eventService.unregister(event).subscribe(() => {this.refresh();});
+  }
+
+  public isOwner(model: EventModel){
+    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    if(user){
+      return user.id == model.creator.id;
+    } else return false;
+  }
+
+  public seeDetails(event: EventModel){
+    this.router.navigate(["/event/detail/" + event.id]);
+  }
+
+  public onChange(filter : HTMLSelectElement){
+    console.log("onchange");
+    this.inputFilter = parseInt(filter.value);
+    this.refresh();
   }
 }

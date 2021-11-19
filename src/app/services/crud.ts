@@ -23,7 +23,7 @@ export abstract class CRUD<T>{
     }
 
     public update(id: number, body: T){
-        return this.server.post(this.config.path + `/${id}`, body);
+        return this.server.put(this.config.path + "/edit" + `/${id}`, body);
     }
 
     public delete(id: number){

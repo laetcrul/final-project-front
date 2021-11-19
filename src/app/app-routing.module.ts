@@ -10,7 +10,7 @@ const routes: Routes = [
       .then(t => t.TopicsModule)},
   {path: 'home', component: HomeComponent},
   {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({

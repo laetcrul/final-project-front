@@ -1,7 +1,18 @@
 <div class="container">
+  <div>
+    <select #element class="form-control" (input)="onChange(element)">
+      <option value="0">Filter by...</option>
+      <option value="1">Team Only</option>
+      <option value="2">Department Only</option>
+    </select>
+  </div>
     <div *ngFor="let event of eventList">
-        <div class="row flex justify-content-left margin-right-0 border-bottom border-secondary p-3" >
-            <div class="col-3 "><img src="{{event.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
+
+        <div class="row flex justify-content-left margin-right-0 pt-0 border-bottom border-secondary p-3" >
+            <div class="col-3 ">
+              <div class="small font-italic font-weight-bold" *ngIf="event.limitedToDepartment"><span>Department only</span></div>
+              <div class="small font-italic font-weight-bold" *ngIf="event.limitedToTeam"><span>Team only</span></div>
+              <div class="small font-italic font-weight-bold" *ngIf="!event.limitedToDepartment && !event.limitedToTeam"><span>Open to all!</span></div><img src="{{event.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
             <div *ngIf="event" class="row flex-column col-3">
                 <div class="col font-italic">{{event.name}}</div>
                 <div class="col">{{event.date}}</div>
@@ -9,13 +20,31 @@
             </div>
             <div class="row flex-column col-3 actions text-center justify-content-center">
                 <div class="actions">
-                    <div class=col *ngIf="!isRegistered(event)"><button class="btn btn-primary" (click)="register(event)"> Register</button></div>
-                    <div class=col *ngIf="isRegistered(event)"><button class="btn btn-primary" (click)="unregister(event)"> Unregister</button></div>
-                    <div class="col" > <a href="#">See details</a></div>
-                    <div class="col"> <a href="topic/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
+                    <div class=col *ngIf="!isRegistered(event)"><button class="btn btn-primary w-100" (click)="register(event)"> Register</button></div>
+                    <div class=col *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-secondary w-100" (click)="unregister(event)"> Unregister</button></div>
+                    <div class=col>
+                      <button *ngIf="isOwner(event)" class="btn btn-primary w-100" (click)="seeDetails(event)">Open</button>
+                      <button *ngIf="!isOwner(event)" class="btn btn-info w-100 mt-1" (click)="seeDetails(event)">See details</button></div>
+
+                    <div class="col" *ngIf="topicPresent"> <a href="topic/detail/{{event.topic.id}}">See more of "{{event.topic.name}}"</a></div>
                 </div>
             </div>
-          <div class="col-3 text-center justify-content-center d-flex align-items-end small"><a href=""><u>Report this event</u></a></div>
+
+          <div class="row flex-column col-3 actions text-center justify-content-center pt-4">
+            <div *ngIf="isOwner(event)" class="col text-center justify-content-center d-flex align-items-start small" >
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                  </svg>
+                  Owned
+                </span>
+            </div>
+            <div class="col text-center justify-content-center d-flex align-items-end small" *ngIf="!isOwner(event)">
+              <a href=""  class="text-danger font-italic"><u>Report this event</u></a>
+            </div>
+          </div>
         </div>
     </div>
 </div>
+
+

@@ -11,61 +11,45 @@
 
         <li class="nav-item dropdown" *ngIf="isLoggedIn()">
           <a class="nav-link dropdown-toggle" href="#" id="seeAll" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            See All
+            Events
           </a>
           <div class="dropdown-menu" aria-labelledby="seeAll">
-            <a class="dropdown-item" href="/topic/all">Topics</a>
-            <a class="dropdown-item" href="/event/all">Events</a>
+            <a class="dropdown-item" href="/event/all">All</a>
+            <a class="dropdown-item" href="/event/subscribed">Registered</a>
+            <a class="dropdown-item" href="/event/create">New</a>
           </div>
         </li>
 
         <li class="nav-item dropdown" *ngIf="isLoggedIn()">
           <a class="nav-link dropdown-toggle" href="#" id="seeFollowed" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            See Followed
+            Topics
           </a>
           <div class="dropdown-menu" aria-labelledby="seeFollowed">
-            <a class="dropdown-item" href="/topic/subscribed">Topics</a>
-            <a class="dropdown-item" href="/event/subscribed">Events</a>
-          </div>
-        </li>
-
-        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
-          <a class="nav-link dropdown-toggle" href="#" id="new" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            New
-          </a>
-          <div class="dropdown-menu" aria-labelledby="new">
-            <a class="dropdown-item" href="/topic/create">Topic</a>
-            <a class="dropdown-item" href="/event/create">Event</a>
-          </div>
-        </li>
-
-        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
-          <a class="nav-link dropdown-toggle" href="#" id="manage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Manage
-          </a>
-          <div class="dropdown-menu" aria-labelledby="manage">
-            <a class="dropdown-item" href="/topic/created">My Topics</a>
-            <a class="dropdown-item" href="/event/created">My Events</a>
-          </div>
-        </li>
-
-
-        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
-          <a class="nav-link dropdown-toggle" href="#" id="admin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Admin
-          </a>
-          <div class="dropdown-menu" aria-labelledby="admin">
-            <a class="dropdown-item" href="#">Alerts</a>
-            <a class="dropdown-item" href="#">Users</a>
+            <a class="dropdown-item" href="/topic/all">All</a>
+            <a class="dropdown-item" href="/topic/subscribed">Followed</a>
+            <a class="dropdown-item" href="/topic/create">New</a>
           </div>
         </li>
       </ul>
     </div>
 
-        <li class="nav-item active">
-          <button  *ngIf="isLoggedIn()" class="btn text-white" (click)="logout()" >Log out <span class="sr-only">(current)</span></button>
-        </li>
+    <div class="d-flex">
 
+      <div class="nav-item dropdown" *ngIf="user">
+        <a class="nav-link dropdown-toggle font-italic text-white" href="#" id="my" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{user.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="seeAll">
+          <a class="dropdown-item" href="/event/created">My Events</a>
+          <a class="dropdown-item" href="/topic/created">My Topics</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Alerts (admin)</a>
+          <a class="dropdown-item" href="#">Users (admin)</a>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="logout()">Log out</button>
+        </div>
+      </div>
+    </div>
 
   </nav>
 </div>
