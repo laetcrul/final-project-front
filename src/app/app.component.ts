@@ -28,4 +28,12 @@ export class AppComponent {
     this.authService.logout();
     this.router.navigate(["home"]);
   }
+
+  public isAdmin(){
+    if(sessionStorage.getItem('user')){
+      const user = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+      return user.roles.find(role => role.label == "ROLE_MANAGE_USERS") != undefined;
+    }
+    return false;
+  }
 }

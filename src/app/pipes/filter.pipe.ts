@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {EventModel} from "../models/event.model";
 
 @Pipe({
   name: 'appFilter'

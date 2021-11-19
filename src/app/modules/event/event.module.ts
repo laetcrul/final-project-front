@@ -12,6 +12,7 @@ import { SubscribedEventsComponent } from './pages/subscribed-events/subscribed-
 import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { EditEventComponent } from './pages/edit-event/edit-event.component';
 import {UserModule} from "../user/user.module";
+import {SharedModule} from "../shared/shared.module";
 
 
 
@@ -30,12 +31,13 @@ import {UserModule} from "../user/user.module";
   exports: [
     EventListComponent
   ],
-    imports: [
-        CommonModule,
-        EventRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        UserModule,
-    ]
+  imports: [
+    CommonModule,
+    EventRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    UserModule,
+    SharedModule,
+  ]
 })
 export class EventModule { }

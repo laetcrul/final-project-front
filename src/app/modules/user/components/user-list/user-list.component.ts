@@ -5,6 +5,7 @@ import {TopicService} from "../../../../services/topic.service";
 import {User} from "../../../../models/user.model";
 import {UserService} from "../../../../services/user.service";
 import {RoleModel} from "../../../../models/role.model";
+import {RoleService} from "../../../../services/role.service";
 
 @Component({
   selector: 'app-user-list',
@@ -16,6 +17,7 @@ export class UserListComponent implements OnInit {
   topicId: number | undefined;
   eventId: number | undefined;
   searchText = "";
+  allRoles : RoleModel[] = [];
 
   userList : User[] = [];
 
@@ -23,6 +25,7 @@ export class UserListComponent implements OnInit {
               private eventService: EventService,
               private topicService: TopicService,
               private userService: UserService,
+              private roleService: RoleService,
               ) {
 
     this.route.data.subscribe((element) => {
@@ -41,6 +44,11 @@ export class UserListComponent implements OnInit {
         this.eventId = eventId;
       }
     }
+
+    this.roleService.getAll().subscribe(list => {
+      this.allRoles = list;
+      console.log(this.allRoles);
+    });
     this.refresh();
   }
 
@@ -65,5 +73,17 @@ export class UserListComponent implements OnInit {
         this.userList = list;
       });
     }
+  }
+
+  public removeRole(roleId: number, userId: number){
+
+  }
+
+  public addRole(roleId: number, userId: number){
+    this.userService.addRole(roleId, userId).subscribe(x => console.log("role ", roleId, " added to user ", userId));
+  }
+
+  public hasRole(user: User, role: RoleModel){
+    return user.roles.find(res => res.label == role.label) != undefined;
   }
 }

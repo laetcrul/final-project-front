@@ -4,22 +4,21 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { AllUsersComponent } from './pages/all-users/all-users.component';
 import {UserRoutingModule} from "./user-routing-module";
 import {FormsModule} from "@angular/forms";
-import {FilterPipe} from "../../pipes/filter.pipe";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
     UserListComponent,
     AllUsersComponent,
-    FilterPipe
   ],
   exports: [
     UserListComponent,
-    FilterPipe
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     FormsModule,
+    SharedModule,
   ]
 })
 export class UserModule { }

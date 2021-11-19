@@ -12,6 +12,7 @@ import { SubscribedTopicsComponent } from './pages/subscribed-topics/subscribed-
 import { MyTopicsComponent } from './pages/my-topics/my-topics.component';
 import { EditTopicComponent } from './pages/edit-topic/edit-topic.component';
 import {UserModule} from "../user/user.module";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {UserModule} from "../user/user.module";
     ReactiveFormsModule,
     FormsModule,
     EventModule,
-    UserModule
+    UserModule,
+    SharedModule
   ]
 })
 export class TopicsModule { }
