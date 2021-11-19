@@ -39,7 +39,7 @@ export class EventFormComponent implements OnInit {
               private topicService: TopicService,
               private route: ActivatedRoute) {
 
-    this.addressService.getAll().subscribe((res : Address[]) => this.addressList = res);
+
     this.topicService.getAll().subscribe((res) => {
       this.topicList = res;
       this.topicList.sort(function (a,b){
@@ -50,13 +50,13 @@ export class EventFormComponent implements OnInit {
           return -1;
         } return 0;
       });
+      this.addressService.getAll().subscribe((res : Address[]) => this.addressList = res);
     });
 
     const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
     if (!isNaN(id)){
       eventService.getOneById(id).subscribe((event) => {
         this.event = event;
-        console.log(event);
       });
     }
 

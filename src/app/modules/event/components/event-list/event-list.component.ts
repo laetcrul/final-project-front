@@ -28,7 +28,6 @@ export class EventListComponent implements OnInit {
   public refresh(){
 
     const topicId = parseInt(this.route.snapshot.paramMap.get('id') || "");
-    console.log(topicId);
 
     if(this.pathFilter == undefined && !topicId){
       this.getAll();
