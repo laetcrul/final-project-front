@@ -4,6 +4,7 @@ import {EventService} from "../../../../services/event.service";
 import {TopicService} from "../../../../services/topic.service";
 import {User} from "../../../../models/user.model";
 import {UserService} from "../../../../services/user.service";
+import {RoleModel} from "../../../../models/role.model";
 
 @Component({
   selector: 'app-user-list',
@@ -23,6 +24,7 @@ export class UserListComponent implements OnInit {
               private topicService: TopicService,
               private userService: UserService,
               ) {
+
     this.route.data.subscribe((element) => {
       this.element= element.element;
     });
