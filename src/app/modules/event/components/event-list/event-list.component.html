@@ -1,6 +1,6 @@
 <div class="container">
-  <div>
-    <select #element class="form-control" (input)="onChange(element)">
+  <div >
+    <select #element class="form-control w-25" (input)="onChange(element)">
       <option value="0">Filter by...</option>
       <option value="1">Team Only</option>
       <option value="2">Department Only</option>
@@ -13,9 +13,9 @@
               <div class="small font-italic font-weight-bold" *ngIf="event.limitedToDepartment"><span>Department only</span></div>
               <div class="small font-italic font-weight-bold" *ngIf="event.limitedToTeam"><span>Team only</span></div>
               <div class="small font-italic font-weight-bold" *ngIf="!event.limitedToDepartment && !event.limitedToTeam"><span>Open to all!</span></div><img src="{{event.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
-            <div *ngIf="event" class="row flex-column col-3">
+            <div *ngIf="event" class="row flex-column col-3 pt-5">
                 <div class="col font-italic">{{event.name}}</div>
-                <div class="col">{{event.date}}</div>
+                <div class="col">{{event.date | date}}</div>
                 <div *ngIf="event.address" class="col">{{event.address.city}}</div>
             </div>
             <div class="row flex-column col-3 actions text-center justify-content-center">

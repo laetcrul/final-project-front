@@ -7,13 +7,14 @@ import {SubscribedTopicsComponent} from "./pages/subscribed-topics/subscribed-to
 import {FilterEnum} from "../event/filter.enum";
 import {MyTopicsComponent} from "./pages/my-topics/my-topics.component";
 import {EditTopicComponent} from "./pages/edit-topic/edit-topic.component";
+import {element} from "../../enums/element.enum";
 
 const routes: Routes = [
     {path: 'all', component: AllTopicsComponent},
     {path: 'create', component: CreateTopicComponent},
     {path: 'subscribed', component: SubscribedTopicsComponent, data: {filter: FilterEnum.subscribed}},
     {path: 'created', component: MyTopicsComponent, data: {filter: FilterEnum.created}},
-    {path: 'detail/:id', component: TopicDetailsComponent},
+    {path: 'detail/:id', component: TopicDetailsComponent, data: {element: element.topic}},
     {path: 'edit/:id', component: EditTopicComponent}
 ];
 

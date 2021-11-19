@@ -11,6 +11,7 @@ import { AllEventsComponent } from './pages/all-events/all-events.component';
 import { SubscribedEventsComponent } from './pages/subscribed-events/subscribed-events.component';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { EditEventComponent } from './pages/edit-event/edit-event.component';
+import {UserModule} from "../user/user.module";
 
 
 
@@ -29,11 +30,12 @@ import { EditEventComponent } from './pages/edit-event/edit-event.component';
   exports: [
     EventListComponent
   ],
-  imports: [
-    CommonModule,
-    EventRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ]
+    imports: [
+        CommonModule,
+        EventRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        UserModule,
+    ]
 })
 export class EventModule { }

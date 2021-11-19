@@ -11,7 +11,6 @@
                   <div class=col *ngIf="!isSubscribedToTopic(topic) && !isOwner(topic)"><button class="btn btn-primary w-100" (click)="register(topic)"> Subscribe</button></div>
                   <div class=col *ngIf="isSubscribedToTopic(topic) && !isOwner(topic)"><button class="btn btn-secondary w-100" (click)="unregister(topic)"> Unsubscribe</button></div>
                   <div class=col *ngIf="isOwner(topic)"><button class="btn btn-primary w-100" (click)="seeDetails(topic)">Open</button></div>
-
                   <div class="col" *ngIf="!isOwner(topic)"><button class="btn btn-info w-100 mt-1" (click)="seeDetails(topic)">See details</button></div>
                 </div>
             </div>

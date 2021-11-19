@@ -8,6 +8,7 @@ import {MyEventsComponent} from "./pages/my-events/my-events.component";
 import {TopicDetailsComponent} from "../topics/pages/topic-details/topic-details.component";
 import {EventDetailsComponent} from "./pages/event-details/event-details.component";
 import {EditEventComponent} from "./pages/edit-event/edit-event.component";
+import {element} from "../../enums/element.enum";
 
 const routes: Routes = [
     {path: 'all', component: AllEventsComponent},
@@ -15,8 +16,8 @@ const routes: Routes = [
     {path: 'subscribed', component: SubscribedEventsComponent, data: {filter: FilterEnum.subscribed}},
     {path: 'created', component: MyEventsComponent, data: {filter: FilterEnum.created}},
     {path: 'detail', children: [ {
-      path: ':id', component: EventDetailsComponent}
-      ]},
+      path: ':id', component: EventDetailsComponent},
+      ], data: {element: element.event}},
     {path: 'edit/:id', component: EditEventComponent},
 ];
 
