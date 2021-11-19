@@ -43,7 +43,8 @@ export class TopicDetailsComponent implements OnInit {
     return user.id == topic.creator.id;
   }
   public delete(topic: Topic){
-    alert("Delete this topic?");
-    this.topicService.delete(topic.id).subscribe(() => this.router.navigate(["topic/created"]));
+    if(confirm("Delete this topic?")){
+      this.topicService.delete(topic.id).subscribe(() => this.router.navigate(["topic/created"]));
+    }
   }
 }

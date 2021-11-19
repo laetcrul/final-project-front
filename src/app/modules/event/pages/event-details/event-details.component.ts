@@ -44,7 +44,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public delete(event: EventModel){
-    if(confirm("Delete this topic?")){
+    if(confirm("Delete this event?")){
       this.eventService.delete(event.id).subscribe(() => this.router.navigate(["event/created"]));
     }
   }
