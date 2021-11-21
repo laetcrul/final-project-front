@@ -21,4 +21,8 @@ export class UserService extends CRUD<User>{
   public addRole(roleId: number, userId: number){
     return this.http.put<User>(`${SERVER_URL}user/add_role?userId=${userId}&roleId=${roleId}`, "");
   }
+
+  public removeRole(roleId: number, userId: number){
+    return this.http.put<User>(`${SERVER_URL}user/remove_role?userId=${userId}&roleId=${roleId}`, "");
+  }
 }

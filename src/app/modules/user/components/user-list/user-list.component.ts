@@ -6,6 +6,7 @@ import {User} from "../../../../models/user.model";
 import {UserService} from "../../../../services/user.service";
 import {RoleModel} from "../../../../models/role.model";
 import {RoleService} from "../../../../services/role.service";
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-list',
@@ -20,12 +21,14 @@ export class UserListComponent implements OnInit {
   allRoles : RoleModel[] = [];
 
   userList : User[] = [];
+  modalUser: User | undefined;
 
   constructor(private route: ActivatedRoute,
               private eventService: EventService,
               private topicService: TopicService,
               private userService: UserService,
               private roleService: RoleService,
+              private modalService: NgbModal
               ) {
 
     this.route.data.subscribe((element) => {
@@ -76,7 +79,7 @@ export class UserListComponent implements OnInit {
   }
 
   public removeRole(roleId: number, userId: number){
-
+    this.userService.removeRole(roleId, userId).subscribe(x => console.log("role ", roleId, " deleted from user ", userId));
   }
 
   public addRole(roleId: number, userId: number){
@@ -85,5 +88,15 @@ export class UserListComponent implements OnInit {
 
   public hasRole(user: User, role: RoleModel){
     return user.roles.find(res => res.label == role.label) != undefined;
+  }
+
+  public triggerModal(content : any, user: User) {
+    this.modalUser = user;
+    let closeModal: string;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+      closeModal = `Closed with: ${res}`;
+    }, (res) => {
+      // closeModal = `Dismissed ${this.getDismissReason(res)}`;
+    });
   }
 }
