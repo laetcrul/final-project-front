@@ -44,12 +44,12 @@
           <a class="dropdown-item" href="/topic/created">My Topics</a>
           <div class="dropdown-divider"></div>
           <a *ngIf="isAdmin()" class="dropdown-item" href="/user/all">Users (admin)</a>
+          <a *ngIf="isAdmin()" class="dropdown-item" href="/event/admin">All events (admin)</a>
           <div *ngIf="isAdmin()" class="dropdown-divider"></div>
           <button class="dropdown-item" (click)="logout()">Log out</button>
         </div>
       </div>
     </div>
-
   </nav>
 </div>
 

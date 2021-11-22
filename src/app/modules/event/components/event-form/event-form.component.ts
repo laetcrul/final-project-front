@@ -39,7 +39,7 @@ export class EventFormComponent implements OnInit {
               private topicService: TopicService,
               private route: ActivatedRoute) {
 
-
+    this.addressService.getAll().subscribe((res : Address[]) => this.addressList = res);
     this.topicService.getAll().subscribe((res) => {
       this.topicList = res;
       this.topicList.sort(function (a,b){
@@ -50,7 +50,6 @@ export class EventFormComponent implements OnInit {
           return -1;
         } return 0;
       });
-      this.addressService.getAll().subscribe((res : Address[]) => this.addressList = res);
     });
 
     const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
@@ -64,7 +63,7 @@ export class EventFormComponent implements OnInit {
     this.descriptionCtl = fb.control([this.event?.description],  Validators.maxLength(500));
     this.dateCtl = fb.control([this.event?.date], Validators.required);
     this.imageCtl = fb.control([this.event?.image], Validators.maxLength(200));
-    this.addressCtl = fb.control(this.event?.address);
+    this.addressCtl = fb.control([this.event?.address]);
     this.limitedToCtl = fb. control(null, Validators.required);
     this.topicCtl = fb.control([this.event?.topic])
 

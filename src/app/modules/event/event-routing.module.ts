@@ -9,6 +9,7 @@ import {TopicDetailsComponent} from "../topics/pages/topic-details/topic-details
 import {EventDetailsComponent} from "./pages/event-details/event-details.component";
 import {EditEventComponent} from "./pages/edit-event/edit-event.component";
 import {element} from "../../enums/element.enum";
+import {AllEventsAdminComponent} from "./pages/all-events-admin/all-events-admin.component";
 
 const routes: Routes = [
     {path: 'all', component: AllEventsComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
       path: ':id', component: EventDetailsComponent},
       ], data: {element: element.event}},
     {path: 'edit/:id', component: EditEventComponent},
+    {path: 'admin', component: AllEventsAdminComponent, data: {filter: FilterEnum.admin}}
 ];
 
 @NgModule({

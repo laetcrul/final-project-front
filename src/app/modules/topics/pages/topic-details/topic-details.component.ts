@@ -39,6 +39,13 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   public edit(topic: Topic){
+    // this.router.navigate(["topic/edit/" + topic.id]);
+
+    if(!this.isOwner(topic) && this.isAdmin()){
+      if(confirm("Are you sure you want to edit " + topic.creator.username + "'s topic?")){
+        this.router.navigate(["topic/edit/" + topic.id]);
+      } return;
+    }
     this.router.navigate(["topic/edit/" + topic.id]);
   }
 

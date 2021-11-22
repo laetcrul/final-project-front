@@ -13,6 +13,7 @@ import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { EditEventComponent } from './pages/edit-event/edit-event.component';
 import {UserModule} from "../user/user.module";
 import {SharedModule} from "../shared/shared.module";
+import { AllEventsAdminComponent } from './pages/all-events-admin/all-events-admin.component';
 
 
 
@@ -27,6 +28,7 @@ import {SharedModule} from "../shared/shared.module";
     SubscribedEventsComponent,
     MyEventsComponent,
     EditEventComponent,
+    AllEventsAdminComponent,
   ],
   exports: [
     EventListComponent

@@ -1,22 +1,22 @@
 <div class="container">
   <div class="d-flex">
     <div>
-      <input type="text" placeholder="Search..." id="search-text" class="form-control" [(ngModel)]="searchText">
+      <input type="text" placeholder="Search by name..." id="search-text" class="form-control" [(ngModel)]="searchText">
     </div>
     <div>
       <select #element class="form-control" (input)="onChange(element)">
         <option value="0">Filter by...</option>
-        <option value="1">Team Only</option>
-        <option value="2">Department Only</option>
+        <option value="1" *ngIf="!adminView()">Team Only</option>
+        <option value="2" *ngIf="!adminView()">Department Only</option>
+        <option value="3">Past Events</option>
       </select>
     </div>
   </div>
 
-  <div *ngFor="let event of eventList | appFilter: searchText">
+  <div *ngFor="let event of eventList | appFilter: searchText | eventDates: getDateFilter()">
     <div class="row flex justify-content-left margin-right-0 pt-0 border-bottom border-secondary p-3">
       <div class="col-3 ">
-        <div class="small font-italic font-weight-bold" *ngIf="event.limitedToDepartment"><span>Department only</span>
-        </div>
+        <div class="small font-italic font-weight-bold" *ngIf="event.limitedToDepartment"><span>Department only</span></div>
         <div class="small font-italic font-weight-bold" *ngIf="event.limitedToTeam"><span>Team only</span></div>
         <div class="small font-italic font-weight-bold" *ngIf="!event.limitedToDepartment && !event.limitedToTeam">
           <span>Open to all!</span></div>
@@ -28,25 +28,26 @@
       </div>
       <div class="row flex-column col-3 actions text-center justify-content-center">
         <div class="actions">
-          <div class=col *ngIf="!isRegistered(event)">
+          <div class=col *ngIf="!isRegistered(event) && !pastList() &&!adminView()">
             <button class="btn btn-primary w-100" (click)="register(event)"> Register</button>
           </div>
-          <div class=col *ngIf="isRegistered(event) && !isOwner(event)">
+          <div class=col *ngIf="isRegistered(event) && !isOwner(event) && !pastList() &&!adminView()">
             <button class="btn btn-secondary w-100" (click)="unregister(event)"> Unregister</button>
           </div>
           <div class=col>
-            <button *ngIf="isOwner(event)" class="btn btn-primary w-100" (click)="seeDetails(event)">Open</button>
-            <button *ngIf="!isOwner(event)" class="btn btn-info w-100 mt-1" (click)="seeDetails(event)">See details
+            <button *ngIf="isOwner(event) || adminView()" class="btn btn-primary w-100" (click)="seeDetails(event)">Open</button>
+            <button *ngIf="!isOwner(event) && !adminView()" class="btn btn-info w-100 mt-1" (click)="seeDetails(event)">See details
             </button>
           </div>
 
-          <div class="col" *ngIf="topicPresent"><a href="topic/detail/{{event.topic.id}}">See more of
+          <div class="col" *ngIf="topicPresent && !adminView()"><a href="topic/detail/{{event.topic.id}}">See more of
             "{{event.topic.name}}"</a></div>
         </div>
       </div>
 
       <div class="row flex-column col-3 actions text-center justify-content-center pt-4">
-        <div *ngIf="isOwner(event)" class="col text-center justify-content-center d-flex align-items-start small">
+        <div *ngIf="isSoon(event) && !adminView()"><span class="badge-pill badge-info">Soon!</span></div>
+        <div *ngIf="isOwner(event)" class="col text-center justify-content-center d-flex align-items-end small">
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check"
                        viewBox="0 0 16 16">

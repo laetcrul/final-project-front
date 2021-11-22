@@ -4,6 +4,8 @@ import { EventModel } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/event.service';
 import {User} from "../../../../models/user.model";
 import {AuthService} from "../../../../services/auth.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {UserListComponent} from "../../../user/components/user-list/user-list.component";
 
 @Component({
   selector: 'app-event-card',
@@ -16,7 +18,8 @@ export class EventDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private eventService: EventService,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private modalService: NgbModal) {
       const id = parseInt(this.route.snapshot.paramMap.get('id') || '', undefined);
       eventService.getOneById(id).subscribe((event: EventModel) => this.event = event);
    }
@@ -42,6 +45,11 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public edit(event: EventModel){
+    if(!this.isOwner(event) && this.isAdmin()){
+      if(confirm("Are you sure you want to edit " + event.creator.username + "'s topic?")){
+        this.router.navigate(["event/edit/" + event.id]);
+      } return;
+    }
     this.router.navigate(["event/edit/" + event.id]);
   }
 

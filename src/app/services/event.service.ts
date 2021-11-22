@@ -33,4 +33,8 @@ export class EventService extends CRUD<EventModel>{
   public getAllCreated(){
     return this.server.get<EventModel[]>("event/owned");
   }
+
+  public getAllAdmin(){
+    return this.server.get<EventModel[]>("event/admin");
+  }
 }

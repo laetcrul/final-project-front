@@ -1,4 +1,5 @@
 export enum FilterEnum {
   subscribed,
-  created
+  created,
+  admin
 }
