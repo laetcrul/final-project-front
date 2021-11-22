@@ -60,12 +60,12 @@
 
       <div class="d-flex w-100 justify-content-center align-items-center">
         <span class="font-italic pr-4" *ngIf="topic.subscribedUsers.length > 0">Subscribed members:</span>
-        <img class="rounded-circle" *ngFor="let user of topic.subscribedUsers | slice:0:4;" src="{{user.image}}" alt="img" style="width: 5%; height:5vh; object-fit: cover;">
-        <button class="btn btn-link pl-2 text-black-50 pl-4" *ngIf="topic.subscribedUsers.length > 5" data-toggle="modal" data-target="#usersModal"><u>See all</u></button>
+        <img class="rounded-circle" *ngFor="let user of topic.subscribedUsers | slice:0:4;" src="{{user.image}}" alt="img" style="width: 8vh; height:8vh; object-fit: cover;">
+        <button class="btn btn-link pl-2 text-black-50 pl-4" data-toggle="modal" data-target="#usersModal"><u>See all</u></button>
 
         <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content p-3">
               <app-user-list></app-user-list>
             </div>
           </div>
