@@ -27,5 +27,22 @@ export class AppComponent {
   public logout(){
     this.authService.logout();
     this.router.navigate(["home"]);
+    window.location.reload();
+  }
+
+  public canManageUsers(){
+    if(sessionStorage.getItem('user')){
+      const user = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+      return user.roles.find(role => role.label == "ROLE_MANAGE_USERS") != undefined;
+    }
+    return false;
+  }
+
+  public canManageEvents(){
+    if(sessionStorage.getItem('user')){
+      const user = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+      return user.roles.find(role => role.label == "ROLE_MANAGE_EVENTS") != undefined;
+    }
+    return false;
   }
 }

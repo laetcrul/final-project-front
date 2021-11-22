@@ -8,6 +8,8 @@ import { LoginComponent } from './components/login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+
 
 export function tokenGetter()
 {
@@ -18,7 +20,7 @@ export function tokenGetter()
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +33,12 @@ export function tokenGetter()
     }),
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

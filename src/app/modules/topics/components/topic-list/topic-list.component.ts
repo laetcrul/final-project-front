@@ -13,6 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class TopicListComponent implements OnInit {
   topicList!: Topic[];
   filter : number = -1;
+  searchText = "";
 
 
   constructor(private topicService: TopicService, private authService: AuthService, private route: ActivatedRoute, private router: Router) {

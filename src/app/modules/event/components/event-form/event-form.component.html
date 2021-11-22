@@ -1,6 +1,6 @@
 <div class="container d-flex flex-column p-4">
     <form (ngSubmit)="submit()" [formGroup]="eventForm" class="eventForm">
-        <div>
+        <div class="form-group">
           <label for="topic">Related topic</label>
           <select class="form-control" id="topic" [formControl]="topicCtl" [value]="event?.topic?.id">
           <option *ngFor="let topic of topicList" [value]="topic.id">{{topic.name}}</option>
@@ -27,8 +27,8 @@
         <div class="form-group">
             <label for="address">Address</label>
             <select class="form-control" id="address" [formControl]="addressCtl" [value]="event?.address?.id">
-              <option selected *ngIf="newAddress">{{newAddress.street}} {{newAddress.number}}, {{newAddress.postcode}} {{newAddress.city}} ({{newAddress.country}})</option>
-                    <option *ngFor="let address of addressList" [value]="address.id">{{address.street}} {{address.number}}, {{address.postcode}} {{address.city}} ({{address.country}})</option>
+              <option *ngIf="newAddress">{{newAddress.street}} {{newAddress.number}}, {{newAddress.postcode}} {{newAddress.city}} ({{newAddress.country}})</option>
+              <option *ngFor="let address of addressList" [value]="address.id">{{address.street}} {{address.number}}, {{address.postcode}} {{address.city}} ({{address.country}})</option>
             </select>
         </div>
 

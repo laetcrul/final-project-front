@@ -3,6 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { EventModel } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/event.service';
 import {User} from "../../../../models/user.model";
+import {AuthService} from "../../../../services/auth.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {UserListComponent} from "../../../user/components/user-list/user-list.component";
 
 @Component({
   selector: 'app-event-card',
@@ -14,7 +17,9 @@ export class EventDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthService,
+    private modalService: NgbModal) {
       const id = parseInt(this.route.snapshot.paramMap.get('id') || '', undefined);
       eventService.getOneById(id).subscribe((event: EventModel) => this.event = event);
    }
@@ -40,12 +45,38 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public edit(event: EventModel){
+    if(!this.isOwner(event) && this.isAdmin()){
+      if(confirm("Are you sure you want to edit " + event.creator.username + "'s topic?")){
+        this.router.navigate(["event/edit/" + event.id]);
+      } return;
+    }
     this.router.navigate(["event/edit/" + event.id]);
   }
 
   public delete(event: EventModel){
-    if(confirm("Delete this event?")){
+    if(!this.isOwner(event) && this.isAdmin()){
+      if(confirm("Are you sure you want to delete " + event.creator.username + "'s topic?")){
+        this.eventService.delete(event.id).subscribe(() => this.router.navigate(["event/all"]));
+      } return;
+    }
+    if(confirm("Delete this topic?")){
       this.eventService.delete(event.id).subscribe(() => this.router.navigate(["event/created"]));
     }
+  }
+
+  public isAdmin(){
+    return this.authService.isAdmin();
+  }
+
+  public isAllowedToRegister(event: EventModel){
+    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+
+    if(event.limitedToTeam){
+      return event.creator.team.id == user.team.id;
+    }
+    if(event.limitedToDepartment){
+      return event.creator.team.department.id == user.team.department.id;
+    }
+    return true;
   }
 }

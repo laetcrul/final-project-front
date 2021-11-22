@@ -58,9 +58,6 @@ export class TopicFormComponent implements OnInit {
         topic.image = this.topic.image;
       }
 
-      console.log("topicform name = " + this.topicForm.value.name);
-      console.log("topicform desc = " + this.topicForm.value.description);
-      console.log("topicform img = " + this.topicForm.value.image);
       this.topicEvent.emit(topic);
     }
   }

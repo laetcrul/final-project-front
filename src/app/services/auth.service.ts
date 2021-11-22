@@ -31,4 +31,9 @@ export class AuthService {
   public getIsLoggedIn() : boolean{
     return sessionStorage.getItem('user') != undefined;
   }
+
+  public isAdmin(){
+    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    return user.group.id == 2;
+  }
 }

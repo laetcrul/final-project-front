@@ -43,14 +43,13 @@
           <a class="dropdown-item" href="/event/created">My Events</a>
           <a class="dropdown-item" href="/topic/created">My Topics</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Alerts (admin)</a>
-          <a class="dropdown-item" href="#">Users (admin)</a>
-          <div class="dropdown-divider"></div>
+          <a *ngIf="canManageUsers()" class="dropdown-item" href="/user/all">Users (admin)</a>
+          <a *ngIf="canManageEvents()" class="dropdown-item" href="/event/admin">All events (admin)</a>
+          <div *ngIf="canManageEvents() || canManageUsers()" class="dropdown-divider"></div>
           <button class="dropdown-item" (click)="logout()">Log out</button>
         </div>
       </div>
     </div>
-
   </nav>
 </div>
 

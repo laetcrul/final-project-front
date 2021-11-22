@@ -11,6 +11,8 @@ import { AllTopicsComponent } from './pages/all-topics/all-topics.component';
 import { SubscribedTopicsComponent } from './pages/subscribed-topics/subscribed-topics.component';
 import { MyTopicsComponent } from './pages/my-topics/my-topics.component';
 import { EditTopicComponent } from './pages/edit-topic/edit-topic.component';
+import {UserModule} from "../user/user.module";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { EditTopicComponent } from './pages/edit-topic/edit-topic.component';
     TopicRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    EventModule
+    EventModule,
+    UserModule,
+    SharedModule
   ]
 })
 export class TopicsModule { }

@@ -56,7 +56,6 @@ export class EventFormComponent implements OnInit {
     if (!isNaN(id)){
       eventService.getOneById(id).subscribe((event) => {
         this.event = event;
-        console.log(event);
       });
     }
 
@@ -64,7 +63,7 @@ export class EventFormComponent implements OnInit {
     this.descriptionCtl = fb.control([this.event?.description],  Validators.maxLength(500));
     this.dateCtl = fb.control([this.event?.date], Validators.required);
     this.imageCtl = fb.control([this.event?.image], Validators.maxLength(200));
-    this.addressCtl = fb.control(this.event?.address);
+    this.addressCtl = fb.control([this.event?.address]);
     this.limitedToCtl = fb. control(null, Validators.required);
     this.topicCtl = fb.control([this.event?.topic])
 

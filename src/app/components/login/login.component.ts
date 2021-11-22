@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   usernameCtl: FormControl;
   passwordCtl: FormControl;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { 
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.usernameCtl = this.fb.control(null, Validators.required);
     this.passwordCtl = this.fb.control(null, Validators.required);
     this.userForm = this.fb.group({
@@ -30,7 +30,9 @@ export class LoginComponent implements OnInit {
     if(this.userForm.valid)
     {
       const user = this.userForm.value as User;
-      this.authService.login(user).subscribe(() => {this.router.navigate(["home"])});
+      this.authService.login(user).subscribe(() => {
+        this.router.navigate(["home"]).then(r => window.location.reload());
+      });
     }
   }
 }
