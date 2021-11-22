@@ -67,4 +67,16 @@ export class EventDetailsComponent implements OnInit {
   public isAdmin(){
     return this.authService.isAdmin();
   }
+
+  public isAllowedToRegister(event: EventModel){
+    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+
+    if(event.limitedToTeam){
+      return event.creator.team.id == user.team.id;
+    }
+    if(event.limitedToDepartment){
+      return event.creator.team.department.id == user.team.department.id;
+    }
+    return true;
+  }
 }

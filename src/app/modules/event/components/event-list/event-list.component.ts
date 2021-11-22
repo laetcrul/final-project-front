@@ -20,7 +20,6 @@ export class EventListComponent implements OnInit {
     this.route.data.subscribe((filter) => {
       this.pathFilter = filter.filter;
     });
-    console.log("pathfilter", this.pathFilter);
     this.refresh();
   }
 
@@ -148,7 +147,6 @@ export class EventListComponent implements OnInit {
   }
 
   public onChange(filter: HTMLSelectElement) {
-    console.log("onchange");
     this.inputFilter = parseInt(filter.value);
     this.refresh();
   }

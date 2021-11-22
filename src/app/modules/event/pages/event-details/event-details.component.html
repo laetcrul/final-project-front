@@ -71,7 +71,7 @@
 
       <div class="d-flex w-100 justify-content-center pb-4">
         <div class="w-50" *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-secondary btn-lg w-100" (click)="unregister(event)"> Unregister</button></div>
-        <div class="w-50" *ngIf="!isRegistered(event) && !isOwner(event)"><button class="btn btn-primary btn-lg w-100" (click)="register(event)"> Register</button></div>
+        <div class="w-50" *ngIf="!isRegistered(event) && !isOwner(event) && isAllowedToRegister(event)"><button class="btn btn-primary btn-lg w-100" (click)="register(event)"> Register</button></div>
       </div>
 
       <div class="d-flex w-100 justify-content-center align-items-center">
