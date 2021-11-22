@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TopicService} from "../../../../services/topic.service";
 import {Topic} from "../../../../models/topic.model";
 import {User} from "../../../../models/user.model";
+import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-topic-details',
@@ -12,7 +13,10 @@ import {User} from "../../../../models/user.model";
 export class TopicDetailsComponent implements OnInit {
   topic!: Topic;
 
-  constructor(private route: ActivatedRoute, private topicService: TopicService, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private topicService: TopicService,
+              private router: Router,
+              private authService: AuthService) {
     const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
     topicService.getOneById(id).subscribe((topic) => this.topic = topic);
   }
@@ -43,8 +47,16 @@ export class TopicDetailsComponent implements OnInit {
     return user.id == topic.creator.id;
   }
   public delete(topic: Topic){
+    if(!this.isOwner(topic) && this.isAdmin()){
+      if(confirm("Are you sure you want to delete " + topic.creator.username + "'s topic?")){
+        this.topicService.delete(topic.id).subscribe(() => this.router.navigate(["topic/all"]));
+      } return;
+    }
     if(confirm("Delete this topic?")){
       this.topicService.delete(topic.id).subscribe(() => this.router.navigate(["topic/created"]));
     }
+  }
+  public isAdmin(){
+    return this.authService.isAdmin();
   }
 }

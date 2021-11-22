@@ -43,7 +43,6 @@
           <a class="dropdown-item" href="/event/created">My Events</a>
           <a class="dropdown-item" href="/topic/created">My Topics</a>
           <div class="dropdown-divider"></div>
-          <a *ngIf="isAdmin()" class="dropdown-item" href="#">Alerts (admin)</a>
           <a *ngIf="isAdmin()" class="dropdown-item" href="/user/all">Users (admin)</a>
           <div *ngIf="isAdmin()" class="dropdown-divider"></div>
           <button class="dropdown-item" (click)="logout()">Log out</button>

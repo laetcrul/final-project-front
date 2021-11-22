@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { EventModel } from 'src/app/models/event.model';
 import { EventService } from 'src/app/services/event.service';
 import {User} from "../../../../models/user.model";
+import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-event-card',
@@ -14,7 +15,8 @@ export class EventDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthService) {
       const id = parseInt(this.route.snapshot.paramMap.get('id') || '', undefined);
       eventService.getOneById(id).subscribe((event: EventModel) => this.event = event);
    }
@@ -44,8 +46,17 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public delete(event: EventModel){
-    if(confirm("Delete this event?")){
+    if(!this.isOwner(event) && this.isAdmin()){
+      if(confirm("Are you sure you want to delete " + event.creator.username + "'s topic?")){
+        this.eventService.delete(event.id).subscribe(() => this.router.navigate(["event/all"]));
+      } return;
+    }
+    if(confirm("Delete this topic?")){
       this.eventService.delete(event.id).subscribe(() => this.router.navigate(["event/created"]));
     }
+  }
+
+  public isAdmin(){
+    return this.authService.isAdmin();
   }
 }

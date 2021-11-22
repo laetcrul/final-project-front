@@ -19,6 +19,7 @@ export class UserListComponent implements OnInit {
   eventId: number | undefined;
   searchText = "";
   allRoles : RoleModel[] = [];
+  adminRoles : RoleModel[] = [];
 
   userList : User[] = [];
   modalUser: User | undefined;
@@ -50,7 +51,10 @@ export class UserListComponent implements OnInit {
 
     this.roleService.getAll().subscribe(list => {
       this.allRoles = list;
-      console.log(this.allRoles);
+    });
+
+    this.roleService.findAllAdmin().subscribe(list => {
+      this.adminRoles = list;
     });
     this.refresh();
   }
@@ -79,15 +83,17 @@ export class UserListComponent implements OnInit {
   }
 
   public removeRole(roleId: number, userId: number){
-    this.userService.removeRole(roleId, userId).subscribe(x => console.log("role ", roleId, " deleted from user ", userId));
+    this.userService.removeRole(roleId, userId).subscribe(x => this.refresh());
   }
 
   public addRole(roleId: number, userId: number){
-    this.userService.addRole(roleId, userId).subscribe(x => console.log("role ", roleId, " added to user ", userId));
+    this.userService.addRole(roleId, userId).subscribe(x => this.refresh());
   }
 
-  public hasRole(user: User, role: RoleModel){
-    return user.roles.find(res => res.label == role.label) != undefined;
+  public hasRole(user: User|undefined, role: RoleModel){
+    if(user){
+      return user.roles.find(res => res.label == role.label) != undefined || user.group.roles.find(res => res.label == role.label) != undefined;
+    } return false;
   }
 
   public triggerModal(content : any, user: User) {
@@ -98,5 +104,16 @@ export class UserListComponent implements OnInit {
     }, (res) => {
       // closeModal = `Dismissed ${this.getDismissReason(res)}`;
     });
+  }
+
+  public roleIsAdmin(role: RoleModel){
+    return this.adminRoles.find(res => res.id == role.id) != undefined;
+  }
+
+  public isAdmin(user: User){
+    if(user.group.id == 2){
+      return true;
+    }
+    return false;
   }
 }
