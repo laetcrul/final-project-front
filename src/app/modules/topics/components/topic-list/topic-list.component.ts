@@ -50,7 +50,7 @@ export class TopicListComponent implements OnInit {
   }
 
   public isSubscribedToTopic(topic: Topic) : boolean{
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();
 
     return topic.subscribedUsers.find((found) => found.id === user.id) != undefined;
   }
@@ -64,7 +64,7 @@ export class TopicListComponent implements OnInit {
   }
 
   public isOwner(topic: Topic){
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();;
     if(user){
       return user.id == topic.creator.id;
     } else return false;

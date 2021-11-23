@@ -19,7 +19,7 @@
         <div *ngIf="event.limitedToDepartment"><span class="badge-pill badge-info small font-italic">Department only</span></div>
         <div *ngIf="event.limitedToTeam"><span class="badge-pill badge-warning small font-italic">Team only</span></div>
         <div *ngIf="!event.limitedToDepartment && !event.limitedToTeam"><span class="badge-pill badge-success small font-italic">Open to all</span></div>
-        <img src="{{event.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
+        <img src="{{event.image != null ? event.image : 'assets/default.jpg' }}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
       <div *ngIf="event" class="row flex-column col-3 pt-5">
         <div class="col font-italic">{{event.name}}</div>
         <div class="col">{{event.date | date}}</div>

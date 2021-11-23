@@ -3,31 +3,36 @@
         <h1>New Address</h1>
 
         <div class = "form-group">
-            <input type="text" id="street" class="form-control" placeholder="Street" [formControl]="streetCtl">
-            <small class="text-danger" *ngIf="streetCtl.hasError('required')">Required</small>
+            <label for="street">Street<span class="text-danger">*</span></label>
+            <input type="text" id="street" class="form-control" [formControl]="streetCtl">
+            <small class="text-danger" *ngIf="streetCtl.hasError('required') && streetCtl.dirty">Required</small>
         </div>
 
         <div class = "form-group">
-            <input type="number" id="number" class="form-control" placeholder="Number"  [formControl]='numberCtl'>
-            <small class="text-danger" *ngIf="numberCtl.hasError('required')">Required</small>
+          <label for="number">Number<span class="text-danger">*</span></label>
+            <input type="number" id="number" class="form-control"  [formControl]='numberCtl'>
+            <small class="text-danger" *ngIf="numberCtl.hasError('required') && numberCtl.dirty">Required</small>
         </div>
 
         <div class = "form-group">
-            <input type="number" id="postcode" class="form-control" placeholder="Postcode"  [formControl]='postcodeCtl'>
-            <small class="text-danger" *ngIf="postcodeCtl.hasError('required')">Required</small>
+          <label for="postcode">Postcode<span class="text-danger">*</span></label>
+          <input type="number" id="postcode" class="form-control"  [formControl]='postcodeCtl'>
+            <small class="text-danger" *ngIf="postcodeCtl.hasError('required') && postcodeCtl.dirty">Required</small>
         </div>
 
         <div class = "form-group">
-            <input type="text" id="city" class="form-control" placeholder="City"  [formControl]='cityCtl'>
-            <small class="text-danger" *ngIf="cityCtl.hasError('required')">Required</small>
+          <label for="city">City<span class="text-danger">*</span></label>
+          <input type="text" id="city" class="form-control"  [formControl]='cityCtl'>
+            <small class="text-danger" *ngIf="cityCtl.hasError('required') && cityCtl.dirty">Required</small>
         </div>
 
         <div class = "form-group">
-            <input type="text" id="country" class="form-control" placeholder="Country"  [formControl]='countryCtl'>
-            <small class="text-danger" *ngIf="countryCtl.hasError('required')">Required</small>
+          <label for="country">Country<span class="text-danger">*</span></label>
+          <input type="text" id="country" class="form-control" [formControl]='countryCtl'>
+            <small class="text-danger" *ngIf="countryCtl.hasError('required') && countryCtl.dirty">Required</small>
         </div>
 
         <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid">Save</button>
-        <button type="submit" class="btn btn-secondary" [disabled]="addressForm.invalid" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     </form>
 </div>

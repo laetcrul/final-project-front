@@ -15,8 +15,8 @@ export class AuthService {
     return this.server.post<User>('login', user)
     .pipe(map((user: User) => {
       if(user.token){
-        sessionStorage.setItem('token', user.token.replace('Bearer ', ''));
-        sessionStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', user.token.replace('Bearer ', ''));
+        localStorage.setItem('user', JSON.stringify(user));
         this.isLoggedIn = true;
       }
       return this.isLoggedIn;
@@ -24,16 +24,20 @@ export class AuthService {
   }
 
   public logout(){
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   public getIsLoggedIn() : boolean{
-    return sessionStorage.getItem('user') != undefined;
+    return localStorage.getItem('user') != undefined;
   }
 
   public isAdmin(){
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = <User>  JSON.parse(localStorage.getItem('user') || "");
     return user.group.id == 2;
+  }
+
+  public getCurrentUser(){
+    return <User>JSON.parse(localStorage.getItem('user') || "");
   }
 }
