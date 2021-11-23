@@ -13,7 +13,6 @@ import {F_topic} from "./topic-form";
 
 export class TopicFormComponent implements OnInit {
   updateForm = new FormGroup(F_topic);
-
   topic: Topic | undefined;
 
   @Output() topicEvent = new EventEmitter<Topic>();

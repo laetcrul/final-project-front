@@ -92,7 +92,7 @@ export class EventListComponent implements OnInit {
   public getAllAdmin(){
     this.eventService.getAllAdmin().subscribe((events) =>
       {
-        this.eventList = events;
+        this.eventList = events.sort((a,b) => this.sort(a,b));
       }
     )
   }

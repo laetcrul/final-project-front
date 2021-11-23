@@ -32,18 +32,20 @@ export class TopicListComponent implements OnInit {
     if(this.filter != undefined){
       switch (this.filter){
         case 0: {
-          this.topicService.getAllRegistered().subscribe(list => this.topicList = list);
+          this.topicService.getAllRegistered().subscribe(list => {
+            this.topicList = list.sort((a, b) => this.sort(a,b));
+            });
           break;
         }
         case 1:{
-          this.topicService.getAllCreated().subscribe(list => this.topicList = list);
+          this.topicService.getAllCreated().subscribe(list => this.topicList = list.sort((a,b) => this.sort(a,b)));
           break;
         }
       }
     }
 
     else {
-      this.topicService.getAll().subscribe((topics: Topic[]) => this.topicList = topics);
+      this.topicService.getAll().subscribe((list: Topic[]) => this.topicList = list.sort((a,b) => this.sort(a,b)));
     }
   }
 
@@ -70,5 +72,15 @@ export class TopicListComponent implements OnInit {
 
   public seeDetails(topic: Topic){
     this.router.navigate(["/topic/detail/" + topic.id]);
+  }
+
+  public sort(a : Topic, b: Topic){
+    if(a.name > b.name){
+      return 1;
+    }
+    if(a.name < b.name){
+      return -1;
+    }
+    return 0;
   }
 }
