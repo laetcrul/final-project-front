@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TopicService } from 'src/app/services/topic.service';
-import { Topic } from 'src/app/models/topic.model';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {TopicService} from 'src/app/services/topic.service';
+import {Topic} from 'src/app/models/topic.model';
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -11,25 +11,25 @@ import {ActivatedRoute} from "@angular/router";
 })
 
 export class TopicFormComponent implements OnInit {
-  topicForm : FormGroup;
+  topicForm: FormGroup;
   nameCtl: FormControl;
   descriptionCtl: FormControl;
   imageCtl: FormControl;
 
-  topic : Topic | undefined;
+  topic: Topic | undefined;
 
   @Output() topicEvent = new EventEmitter<Topic>();
 
-  constructor(private fb: FormBuilder, private topicService : TopicService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private topicService: TopicService, private route: ActivatedRoute) {
     const id = parseInt(this.route.snapshot.paramMap.get("id") || "");
-    if (!isNaN(id)){
+    if (!isNaN(id)) {
       topicService.getOneById(id).subscribe((topic) => {
         this.topic = topic;
       });
     }
 
 
-    this.nameCtl = fb.control([this.topic?.name],[Validators.required, Validators.maxLength(50)]);
+    this.nameCtl = fb.control([this.topic?.name], [Validators.required, Validators.maxLength(50)]);
     this.descriptionCtl = fb.control([this.topic?.description], Validators.maxLength(500));
     this.imageCtl = fb.control([this.topic?.image], Validators.maxLength(250));
     this.topicForm = fb.group({
@@ -42,21 +42,21 @@ export class TopicFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public submit(){
-    if(this.topicForm.valid){
+  public submit() {
+    if (this.topicForm.valid) {
       const topic = this.topicForm.value as Topic;
       console.log(topic);
 
-      if(this.topic != undefined){
-        if(!this.nameCtl.dirty){
+      if (this.topic != undefined) {
+        if (!this.nameCtl.dirty) {
           topic.name = this.topic.name;
         }
 
-        if(!this.descriptionCtl.dirty){
+        if (!this.descriptionCtl.dirty) {
           topic.description = this.topic.description;
         }
 
-        if(!this.imageCtl.dirty){
+        if (!this.imageCtl.dirty) {
           topic.image = this.topic.image;
         }
       }
