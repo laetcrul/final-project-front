@@ -46,9 +46,9 @@
       </div>
 
       <div class="row flex-column col-3 actions text-center justify-content-center pt-4">
-        <div *ngIf="isSoon(event) && !adminView()"><span class="badge-pill badge-info">Soon!</span></div>
-        <div *ngIf="isOwner(event)" class="col text-center justify-content-center d-flex align-items-end small">
-                <span>
+        <div><span class="badge-pill badge-info" *ngIf="isSoon(event) && !adminView()">Soon!</span></div>
+        <div class="col text-center justify-content-center d-flex align-items-end small">
+                <span *ngIf="isOwner(event)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check"
                        viewBox="0 0 16 16">
                     <path

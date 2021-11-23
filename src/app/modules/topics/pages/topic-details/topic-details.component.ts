@@ -53,6 +53,7 @@ export class TopicDetailsComponent implements OnInit {
     const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
     return user.id == topic.creator.id;
   }
+
   public delete(topic: Topic){
     if(!this.isOwner(topic) && this.isAdmin()){
       if(confirm("Are you sure you want to delete " + topic.creator.username + "'s topic?")){

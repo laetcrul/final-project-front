@@ -16,7 +16,7 @@ export class TopicFormComponent implements OnInit {
   descriptionCtl: FormControl;
   imageCtl: FormControl;
 
-  topic! : Topic;
+  topic : Topic | undefined;
 
   @Output() topicEvent = new EventEmitter<Topic>();
 
@@ -29,9 +29,9 @@ export class TopicFormComponent implements OnInit {
     }
 
 
-    this.nameCtl = fb.control([this.topic?.name],[Validators.required, Validators.maxLength(30)]);
+    this.nameCtl = fb.control([this.topic?.name],[Validators.required, Validators.maxLength(50)]);
     this.descriptionCtl = fb.control([this.topic?.description], Validators.maxLength(500));
-    this.imageCtl = fb.control([this.topic?.image], Validators.maxLength(200));
+    this.imageCtl = fb.control([this.topic?.image], Validators.maxLength(250));
     this.topicForm = fb.group({
       name: this.nameCtl,
       description: this.descriptionCtl,
@@ -45,19 +45,21 @@ export class TopicFormComponent implements OnInit {
   public submit(){
     if(this.topicForm.valid){
       const topic = this.topicForm.value as Topic;
+      console.log(topic);
 
-      if(!this.nameCtl.dirty){
-        topic.name = this.topic.name;
+      if(this.topic != undefined){
+        if(!this.nameCtl.dirty){
+          topic.name = this.topic.name;
+        }
+
+        if(!this.descriptionCtl.dirty){
+          topic.description = this.topic.description;
+        }
+
+        if(!this.imageCtl.dirty){
+          topic.image = this.topic.image;
+        }
       }
-
-      if(!this.descriptionCtl.dirty){
-        topic.description = this.topic.description;
-      }
-
-      if(!this.imageCtl.dirty){
-        topic.image = this.topic.image;
-      }
-
       this.topicEvent.emit(topic);
     }
   }

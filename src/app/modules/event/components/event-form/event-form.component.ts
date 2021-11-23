@@ -62,7 +62,7 @@ export class EventFormComponent implements OnInit {
     this.nameCtl = fb.control([this.event?.name], [Validators.required, Validators.maxLength(50)]);
     this.descriptionCtl = fb.control([this.event?.description],  Validators.maxLength(500));
     this.dateCtl = fb.control([this.event?.date], Validators.required);
-    this.imageCtl = fb.control([this.event?.image], Validators.maxLength(200));
+    this.imageCtl = fb.control([this.event?.image], Validators.maxLength(250));
     this.addressCtl = fb.control([this.event?.address]);
     this.limitedToCtl = fb. control(null, Validators.required);
     this.topicCtl = fb.control([this.event?.topic])
@@ -94,58 +94,67 @@ export class EventFormComponent implements OnInit {
   public submit(){
     const event = this.eventForm.value as EventModel;
 
-    if(this.limitedToCtl.dirty){
-      switch (this.limitedToCtl.value){
-        case "team":
-          event.limitedToTeam = true;
-          event.limitedToDepartment = false;
-          break;
-        case "department":
-          event.limitedToDepartment = true;
-          event.limitedToTeam = false;
-          break;
-        case "all":
-          event.limitedToTeam = false;
-          event.limitedToDepartment = false;
-          break;
+    if(this.event){
+      if(this.limitedToCtl.dirty){
+        switch (this.limitedToCtl.value){
+          case "team":
+            event.limitedToTeam = true;
+            event.limitedToDepartment = false;
+            break;
+          case "department":
+            event.limitedToDepartment = true;
+            event.limitedToTeam = false;
+            break;
+          case "all":
+            event.limitedToTeam = false;
+            event.limitedToDepartment = false;
+            break;
+        }
+      } else{
+        event.address = this.event.address;
       }
-    } else{
-      event.address = this.event.address;
-    }
 
-    if(this.addressCtl.dirty){
-      if(this.newAddressIsPresent()){
-        event.address = this.newAddress as Address;
-        event.addressId = undefined;
+      if(this.addressCtl.dirty){
+        if(this.newAddressIsPresent()){
+          event.address = this.newAddress as Address;
+          event.addressId = undefined;
+        }
+        else{
+          event.addressId = parseInt(this.addressCtl.value);
+          event.address = undefined;
+        }
+      } else {
+        event.address = this.event.address;
       }
-      else{
-        event.addressId = parseInt(this.addressCtl.value);
-        event.address = undefined;
+
+      if(this.topicCtl.dirty){
+        event.topic = this.topicList.find((topic) => topic.id == parseInt(this.topicCtl.value)) as Topic;
+      } else{
+        event.topic = this.event.topic;
       }
-    } else {
-      event.address = this.event.address;
+
+      if(!this.nameCtl.dirty){
+        event.name = this.event.name;
+      }
+
+      if(!this.descriptionCtl.dirty){
+        event.description = this.event.description;
+      }
+
+      if(!this.dateCtl.dirty){
+        event.date = this.event.date;
+      }
+
+      if(!this.imageCtl.dirty){
+        event.image = this.event.image;
+      }
     }
 
-    if(this.topicCtl.dirty){
-      event.topic = this.topicList.find((topic) => topic.id == parseInt(this.topicCtl.value)) as Topic;
-    } else{
-      event.topic = this.event.topic;
-    }
-
-    if(!this.nameCtl.dirty){
-      event.name = this.event.name;
-    }
-
-    if(!this.descriptionCtl.dirty){
-      event.description = this.event.description;
-    }
-
-    if(!this.dateCtl.dirty){
-      event.date = this.event.date;
-    }
-
-    if(!this.imageCtl.dirty){
-      event.image = this.event.image;
+    if (this.eventForm.value.topic == null){
+      console.log("bb");
+      if(confirm("Are you sure you want to create an event without a topic? It will automatically be assigned to \"other\"")){
+        this.eventEvent.emit(event);
+      }
     }
     this.eventEvent.emit(event);
   }

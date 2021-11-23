@@ -49,6 +49,8 @@
         <label for="image">Image link</label>
         <input type="text" id="image" class="form-control" [formControl]="imageCtl" [value]="event?.image">
         <small class="text-danger" *ngIf="imageCtl.hasError('required')">Required</small>
+
+        <div *ngIf="imageCtl.value" class="p-2"> <img src="{{imageCtl.value}}" style="width: 10vh; height: 10vh; object-fit: cover;" alt="No image found"></div>
     </div>
 
 

@@ -49,13 +49,15 @@ export class UserListComponent implements OnInit {
       }
     }
 
-    this.roleService.getAll().subscribe(list => {
-      this.allRoles = list;
-    });
+    if(!this.eventId && !this.topicId){
+      this.roleService.getAll().subscribe(list => {
+        this.allRoles = list;
+      });
 
-    this.roleService.findAllAdmin().subscribe(list => {
-      this.adminRoles = list;
-    });
+      this.roleService.findAllAdmin().subscribe(list => {
+        this.adminRoles = list;
+      });
+    }
     this.refresh();
   }
 
