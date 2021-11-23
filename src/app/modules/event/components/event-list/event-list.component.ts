@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {EventModel} from 'src/app/models/event.model';
 import {User} from 'src/app/models/user.model';
 import {EventService} from 'src/app/services/event.service';
+import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-event-list',
@@ -16,7 +17,9 @@ export class EventListComponent implements OnInit {
   topicPresent: boolean = false;
   searchText = "";
 
-  constructor(private eventService: EventService, private router: Router, private route: ActivatedRoute) {
+  constructor(private eventService: EventService,
+              private authService: AuthService,
+              private router: Router, private route: ActivatedRoute) {
     this.route.data.subscribe((filter) => {
       this.pathFilter = filter.filter;
     });
@@ -92,7 +95,7 @@ export class EventListComponent implements OnInit {
   public getAllAdmin(){
     this.eventService.getAllAdmin().subscribe((events) =>
       {
-        this.eventList = events;
+        this.eventList = events.sort((a,b) => this.sort(a,b));
       }
     )
   }
@@ -118,7 +121,7 @@ export class EventListComponent implements OnInit {
   }
 
   public isRegistered(event: EventModel): boolean {
-    const user: User = <User>JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();
 
     return event.participants.find((found) => found.id === user.id) != undefined;
   }
@@ -136,7 +139,7 @@ export class EventListComponent implements OnInit {
   }
 
   public isOwner(model: EventModel) {
-    const user: User = <User>JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();
     if (user) {
       return user.id == model.creator.id;
     } else return false;

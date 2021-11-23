@@ -11,8 +11,8 @@ export class AdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if(sessionStorage.getItem('user')){
-      const user = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    if(localStorage.getItem('user')){
+      const user = <User>  JSON.parse(localStorage.getItem('user') || "");
       return user.roles.find(role => role.label == "ROLE_MANAGE_USERS") != undefined;
     }
     return false;

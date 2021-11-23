@@ -13,7 +13,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 export function tokenGetter()
 {
-  return sessionStorage.getItem('token');
+  return localStorage.getItem('token');
 }
 
 @NgModule({

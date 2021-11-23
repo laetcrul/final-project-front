@@ -8,7 +8,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-
         <li class="nav-item dropdown" *ngIf="isLoggedIn()">
           <a class="nav-link dropdown-toggle" href="#" id="seeAll" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Events
@@ -36,7 +35,9 @@
     <div class="d-flex">
 
       <div class="nav-item dropdown" *ngIf="user">
-        <a class="nav-link dropdown-toggle font-italic text-white" href="#" id="my" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        <a class="nav-link dropdown-toggle font-italic text-white" id="my" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="{{user.image}}" class="rounded-circle" style="width: 4vh; height: 4vh; object-fit: cover">
           {{user.username}}
         </a>
         <div class="dropdown-menu" aria-labelledby="seeAll">

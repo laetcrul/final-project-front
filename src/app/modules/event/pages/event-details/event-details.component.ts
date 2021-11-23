@@ -27,7 +27,7 @@ export class EventDetailsComponent implements OnInit {
   ngOnInit(): void {}
 
   public isRegistered(event: EventModel) : boolean{
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();
 
     return event.participants.find((found) => found.id === user.id) != undefined;
   }
@@ -40,7 +40,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public isOwner(event: EventModel){
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();;
     return user.id == event.creator.id;
   }
 
@@ -69,7 +69,7 @@ export class EventDetailsComponent implements OnInit {
   }
 
   public isAllowedToRegister(event: EventModel){
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();;
 
     if(event.limitedToTeam){
       return event.creator.team.id == user.team.id;

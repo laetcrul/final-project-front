@@ -6,7 +6,7 @@
 
   <div *ngFor="let topic of topicList | appFilter : searchText">
     <div class="row info flex justify-content-left margin-right-0 border-bottom border-secondary p-3" >
-      <div class="col-3"><img src="{{topic.image}}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
+      <div class="col-3"><img src="{{topic.image != null ? topic.image : 'assets/default.jpg' }}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
       <div class="col-3">
         <div class="name">{{topic.name}}</div>
       </div>
@@ -29,7 +29,6 @@
             Owned
           </span>
         </div>
-        <div class="col text-center justify-content-center d-flex align-items-end small" *ngIf="!isOwner(topic)"><a href=""><u>Report this topic</u></a></div>
       </div>
     </div>
   </div>

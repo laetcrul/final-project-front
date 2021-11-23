@@ -25,7 +25,7 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   public isSubscribedToTopic(topic: Topic) : boolean{
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();
 
     return topic.subscribedUsers.find((found) => found.id === user.id) != undefined;
   }
@@ -39,7 +39,6 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   public edit(topic: Topic){
-    // this.router.navigate(["topic/edit/" + topic.id]);
 
     if(!this.isOwner(topic) && this.isAdmin()){
       if(confirm("Are you sure you want to edit " + topic.creator.username + "'s topic?")){
@@ -50,7 +49,7 @@ export class TopicDetailsComponent implements OnInit {
   }
 
   public isOwner(topic: Topic){
-    const user: User = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+    const user: User = this.authService.getCurrentUser();
     return user.id == topic.creator.id;
   }
 

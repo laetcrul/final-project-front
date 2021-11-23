@@ -15,8 +15,8 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router,
     ){
-      if(sessionStorage.getItem('user')){
-        this.user = <User>  JSON.parse(sessionStorage.getItem('user') || "");
+      if(localStorage.getItem('user')){
+        this.user = this.authService.getCurrentUser();
       }
     }
 
@@ -26,22 +26,19 @@ export class AppComponent {
 
   public logout(){
     this.authService.logout();
-    this.router.navigate(["home"]);
-    window.location.reload();
+    this.router.navigate(["home"]).then(() => window.location.reload());
   }
 
   public canManageUsers(){
-    if(sessionStorage.getItem('user')){
-      const user = <User>  JSON.parse(sessionStorage.getItem('user') || "");
-      return user.roles.find(role => role.label == "ROLE_MANAGE_USERS") != undefined;
+    if(this.user != undefined){
+      return this.user.roles.find(role => role.label == "ROLE_MANAGE_USERS") != undefined;
     }
     return false;
   }
 
   public canManageEvents(){
-    if(sessionStorage.getItem('user')){
-      const user = <User>  JSON.parse(sessionStorage.getItem('user') || "");
-      return user.roles.find(role => role.label == "ROLE_MANAGE_EVENTS") != undefined;
+    if(this.user != undefined){
+      return this.user.roles.find(role => role.label == "ROLE_MANAGE_EVENTS") != undefined;
     }
     return false;
   }
