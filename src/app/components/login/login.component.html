@@ -1,17 +1,17 @@
-<div class = "container">
-    <form (ngSubmit)="submit()" [formGroup]="userForm" class="loginform">
-        <h1>Log in</h1>
+<div class = "container flex-wrap">
+    <form (ngSubmit)="submit()" [formGroup]="userForm" class="mt-5 ml-5">
+        <h1 class="mr-30 w-40">Log in</h1>
 
-        <div class = "form-group">
+        <div class = "form-group w-30 mr-5 mt-3">
             <input type="text" id="username" class="form-control" placeholder="Username" [formControl]="usernameCtl">
             <small class="text-danger" *ngIf="usernameCtl.hasError('required')">Required</small>
         </div>
 
-        <div class = "form-group">
+        <div class = "form-group w-30 mr-5 mt-3">
             <input type="password" id="password" class="form-control" placeholder="Password"  [formControl]='passwordCtl'>
             <small class="text-danger" *ngIf="passwordCtl.hasError('required')">Required</small>
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid"> Log in</button>
+        <button type="submit" class="btn btn-primary w-30 pt-10" [disabled]="userForm.invalid"> Log in</button>
     </form>
 </div>

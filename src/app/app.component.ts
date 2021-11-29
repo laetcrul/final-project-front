@@ -9,7 +9,7 @@ import {User} from "./models/user.model";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  user:User | undefined;
+  user: User | undefined;
 
   constructor(
     private authService: AuthService,

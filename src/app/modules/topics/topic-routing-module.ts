@@ -4,7 +4,7 @@ import {CreateTopicComponent} from './pages/create-topic/create-topic.component'
 import {TopicDetailsComponent} from "./pages/topic-details/topic-details.component";
 import {AllTopicsComponent} from "./pages/all-topics/all-topics.component";
 import {SubscribedTopicsComponent} from "./pages/subscribed-topics/subscribed-topics.component";
-import {FilterEnum} from "../event/filter.enum";
+import {FilterEnum} from "../../enums/filter.enum";
 import {MyTopicsComponent} from "./pages/my-topics/my-topics.component";
 import {EditTopicComponent} from "./pages/edit-topic/edit-topic.component";
 import {element} from "../../enums/element.enum";

@@ -6,14 +6,14 @@ import {User} from "../models/user.model";
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class ManageEventsGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if(localStorage.getItem('user')){
       const user = <User>  JSON.parse(localStorage.getItem('user') || "");
-      return user.roles.find(role => role.label == "ROLE_MANAGE_USERS") != undefined;
+      return user.roles.find(role => role.label == "ROLE_MANAGE_EVENTS") != undefined;
     }
     return false;
   }
