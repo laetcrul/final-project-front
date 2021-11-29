@@ -19,10 +19,10 @@ export class AddressFormComponent implements OnInit {
   @Output() addressEvent = new EventEmitter<Address>();
 
   constructor(private fb: FormBuilder) {
-    this.numberCtl = fb.control(null, [Validators.required, Validators.maxLength(5)]);
+    this.numberCtl = fb.control(null, [Validators.required, Validators.max(99999), Validators.min(0)]);
     this.streetCtl = fb.control(null, [Validators.required, Validators.maxLength(30)]);
     this.cityCtl = fb.control(null, [Validators.required, Validators.maxLength(30)]);
-    this.postcodeCtl = fb.control(null, [Validators.required, Validators.maxLength(8)]);
+    this.postcodeCtl = fb.control(null, [Validators.required, Validators.max(99999), Validators.min(0)]);
     this.countryCtl = fb.control(null, [Validators.required, Validators.maxLength(30)]);
 
     this.addressForm = fb.group({
