@@ -116,7 +116,6 @@ export class EventFormComponent implements OnInit {
     }
     event.topic = this.topicList.find((topic) => topic.id == parseInt(this.eventForm.get('topic')?.value)) as Topic;
 
-
     if (this.eventForm.value.topic == null) {
       if (confirm("Are you sure you want to create an event without a topic? It will automatically be assigned to \"other\"")) {
         this.eventEvent.emit(event);

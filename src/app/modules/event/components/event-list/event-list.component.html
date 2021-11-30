@@ -39,7 +39,7 @@
             </button>
           </div>
 
-          <div class="col" *ngIf="topicPresent && !adminView()"><a href="topic/detail/{{event.topic.id}}">See more of
+          <div class="col" *ngIf="event.topic && !adminView()"><a href="topic/detail/{{event.topic.id}}">See more of
             "{{event.topic.name}}"</a></div>
         </div>
       </div>
