@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,7 @@ export class LoginComponent implements OnInit {
   usernameCtl: FormControl;
   passwordCtl: FormControl;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.usernameCtl = this.fb.control(null, Validators.required);
     this.passwordCtl = this.fb.control(null, Validators.required);
     this.userForm = this.fb.group({
@@ -24,7 +27,12 @@ export class LoginComponent implements OnInit {
   }
 
   public submit(){
-    
+    if(this.userForm.valid)
+    {
+      const user = this.userForm.value as User;
+      this.authService.login(user).subscribe(() => {
+        this.router.navigate(["home"]).then(r => window.location.reload());
+      });
+    }
   }
-
 }

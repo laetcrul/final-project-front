@@ -1,0 +1,91 @@
+<div class="container" *ngIf="event">
+  <header class="masthead">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <img class="img-fluid px-500-0" width="600"
+             height="337"
+             style="width: 100%; height: 30vh; object-fit: cover;"
+             alt="img"
+             src="{{event.image != null ? event.image : 'assets/default.jpg'}}">
+        <div class="py-3 text-white bg-dark">
+          <h2>{{event.name}}</h2>
+          <div class="row d-flex justify-content-between px-3">
+            <div *ngIf="event.limitedToTeam" class="col-4 text-white bg-dark text-left pr-4">Team only</div>
+            <div *ngIf="event.limitedToDepartment" class="col-4 text-white bg-dark text-left pr-4">Department only</div>
+            <div *ngIf="!event.limitedToDepartment && !event.limitedToTeam" class="col-4 text-white bg-dark text-left pr-4">Open to All</div>
+            <div class="col text-center font-italic"><a class="col-4 text-white" href="/topic/detail/{{event.topic.id}}"><u>{{event.topic.name}}</u></a></div>
+            <div class="col-4 text-white bg-dark text-right pr-4">
+              <div>
+                <div class="dropleft"  *ngIf="isOwner(event) || isAdmin()">
+                  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                      <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                      <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="btn dropdown-item" (click)="edit(event)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                      </svg>
+                      Edit <span *ngIf="isAdmin() && !isOwner(event)"> (admin)</span>
+                    </button>
+
+                    <button class="btn text-danger dropdown-item" (click)="delete(event)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                      </svg> Delete <span *ngIf="isAdmin() && !isOwner(event)"> (admin)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    <div class="d-flex flex-column align-items-center">
+      <div class="row flex border-bottom border-secondary w-100 pl-2 py-4 mb-0 text-center justify-content-between">
+        <div class="col text-left"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+          </svg> {{event.date | date}}
+        </div>
+
+        <div class="col flex-column text-right">
+          <div class="col" *ngIf="event.address"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+            </svg> {{event.address.street}} {{event.address.number}},</div>
+          <div class="col" *ngIf="event.address">{{event.address.postcode}} {{event.address.city}}</div>
+        </div>
+      </div>
+
+      <div class="border-bottom border-secondary w-100 pl-2 mb-5 text-center">
+        <div class="pb-4 pt-0">{{event.description}}</div>
+        <div class="d-flex w-100 justify-content-center pb-0 align-items-end">
+          <div class="pt-4">Created by: <i> {{event.creator.username}} </i></div>
+        </div>
+      </div>
+
+      <div class="d-flex w-100 justify-content-center pb-4">
+        <div class="w-50" *ngIf="isRegistered(event) && !isOwner(event)"><button class="btn btn-secondary btn-lg w-100" (click)="unregister(event)"> Unregister</button></div>
+        <div class="w-50" *ngIf="!isRegistered(event) && !isOwner(event) && isAllowedToRegister(event)"><button class="btn btn-primary btn-lg w-100" (click)="register(event)"> Register</button></div>
+      </div>
+
+      <div class="d-flex w-100 justify-content-center align-items-center">
+        <span class="font-italic pr-4" *ngIf="event.participants.length > 0">Subscribed members:</span>
+        <img class="rounded-circle" *ngFor="let user of event.participants | slice:0:4;" src="{{user.image}}" alt="img" style="width: 8vh; height:8vh; object-fit: cover;">
+        <button class="btn btn-link pl-2 text-black-50 pl-4" data-toggle="modal" data-target="#usersModal"><u>See all</u></button>
+
+        <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content p-3">
+              <app-user-list></app-user-list>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

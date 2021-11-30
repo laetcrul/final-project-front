@@ -1,3 +1,64 @@
 <div class="container">
-    <p>event-list works!</p>
+  <div class="d-flex">
+    <div>
+      <input type="text" placeholder="Search by name..." id="search-text" class="form-control" [(ngModel)]="searchText">
+    </div>
+    <div>
+      <select #element class="form-control" (input)="onChange(element)">
+        <option value="0">Filter by...</option>
+        <option value="1" *ngIf="!adminView()">Team Only</option>
+        <option value="2" *ngIf="!adminView()">Department Only</option>
+        <option value="3">Past Events</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngFor="let event of eventList | appFilter: searchText | eventDates: getDateFilter()">
+    <div class="row flex justify-content-left margin-right-0 pt-0 border-bottom border-secondary p-3">
+      <div class="col-3 ">
+        <div *ngIf="event.limitedToDepartment"><span class="badge-pill badge-info small font-italic">Department only</span></div>
+        <div *ngIf="event.limitedToTeam"><span class="badge-pill badge-warning small font-italic">Team only</span></div>
+        <div *ngIf="!event.limitedToDepartment && !event.limitedToTeam"><span class="badge-pill badge-success small font-italic">Open to all</span></div>
+        <img src="{{event.image != null ? event.image : 'assets/default.jpg' }}" alt="img" style="width: 80%; height: 20vh; object-fit: cover;"></div>
+      <div *ngIf="event" class="row flex-column col-3 pt-5">
+        <div class="col font-italic">{{event.name}}</div>
+        <div class="col">{{event.date | date}}</div>
+        <div *ngIf="event.address" class="col">{{event.address.city}}</div>
+      </div>
+      <div class="row flex-column col-3 actions text-center justify-content-center">
+        <div class="actions">
+          <div class=col *ngIf="!isRegistered(event) && !pastList() &&!adminView()">
+            <button class="btn btn-primary w-100" (click)="register(event)"> Register</button>
+          </div>
+          <div class=col *ngIf="isRegistered(event) && !isOwner(event) && !pastList() &&!adminView()">
+            <button class="btn btn-secondary w-100" (click)="unregister(event)"> Unregister</button>
+          </div>
+          <div class=col>
+            <button *ngIf="isOwner(event) || adminView()" class="btn btn-primary w-100" (click)="seeDetails(event)">Open</button>
+            <button *ngIf="!isOwner(event) && !adminView()" class="btn btn-info w-100 mt-1" (click)="seeDetails(event)">See details
+            </button>
+          </div>
+
+          <div class="col" *ngIf="event.topic && !adminView()"><a href="topic/detail/{{event.topic.id}}">See more of
+            "{{event.topic.name}}"</a></div>
+        </div>
+      </div>
+
+      <div class="row flex-column col-3 actions text-center justify-content-center pt-4">
+        <div><span class="badge-pill badge-info" *ngIf="isSoon(event) && !adminView()">Soon!</span></div>
+        <div class="col text-center justify-content-center d-flex align-items-end small">
+                <span *ngIf="isOwner(event)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check"
+                       viewBox="0 0 16 16">
+                    <path
+                      d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                  </svg>
+                  Owned
+                </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+

@@ -1,0 +1,45 @@
+<div class = "container p-4">
+    <form (ngSubmit)="submit()" [formGroup]="addressForm" class="addressForm">
+        <h1>New Address</h1>
+
+        <div class = "form-group">
+            <label for="street">Street<span class="text-danger">*</span></label>
+            <input type="text" id="street" class="form-control" [formControl]="streetCtl">
+            <small class="text-danger" *ngIf="streetCtl.hasError('required') && streetCtl.dirty">Required</small>
+            <small class="text-danger" *ngIf="streetCtl.hasError('maxlength')">Max 30 characters</small>
+        </div>
+
+        <div class = "form-group">
+          <label for="number">Number<span class="text-danger">*</span></label>
+            <input type="number" id="number" class="form-control"  [formControl]='numberCtl'>
+            <small class="text-danger" *ngIf="numberCtl.hasError('required') && numberCtl.dirty">Required</small>
+            <small class="text-danger" *ngIf="numberCtl.hasError('max')">Number is too high</small>
+            <small class="text-danger" *ngIf="numberCtl.hasError('min')">Must be positive number</small>
+        </div>
+
+        <div class = "form-group">
+          <label for="postcode">Postcode<span class="text-danger">*</span></label>
+          <input type="number" id="postcode" class="form-control"  [formControl]='postcodeCtl'>
+            <small class="text-danger" *ngIf="postcodeCtl.hasError('required') && postcodeCtl.dirty">Required</small>
+            <small class="text-danger" *ngIf="postcodeCtl.hasError('max')">Number is too high</small>
+            <small class="text-danger" *ngIf="postcodeCtl.hasError('min')">Must be positive number</small>
+        </div>
+
+        <div class = "form-group">
+          <label for="city">City<span class="text-danger">*</span></label>
+          <input type="text" id="city" class="form-control"  [formControl]='cityCtl'>
+            <small class="text-danger" *ngIf="cityCtl.hasError('required') && cityCtl.dirty">Required</small>
+            <small class="text-danger" *ngIf="cityCtl.hasError('maxlength')">Max 30 characters</small>
+        </div>
+
+        <div class = "form-group">
+          <label for="country">Country<span class="text-danger">*</span></label>
+          <input type="text" id="country" class="form-control" [formControl]='countryCtl'>
+            <small class="text-danger" *ngIf="countryCtl.hasError('required') && countryCtl.dirty">Required</small>
+            <small class="text-danger" *ngIf="countryCtl.hasError('maxlength')">Max 30 characters</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </form>
+</div>

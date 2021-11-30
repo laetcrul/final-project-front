@@ -1,0 +1,95 @@
+<div class="container d-flex flex-column p-4">
+  <form (ngSubmit)="submit()" [formGroup]="eventForm" class="eventForm">
+    <div class="form-group" *ngIf="eventForm.get('topic') as topicCtl">
+      <label for="topic">Related topic</label>
+      <select class="form-control" id="topic" formControlName="topic">
+        <option *ngFor="let topic of topicList" [value]="topic.id">{{topic.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngIf="eventForm.get('name') as nameCtl">
+      <label for="name">Name<span class="text-danger">*</span></label>
+      <input type="text" id="name" class="form-control" formControlName="name">
+      <small class="text-danger" *ngIf="nameCtl.hasError('required') && nameCtl.dirty">Required</small>
+      <small class="text-danger" *ngIf="nameCtl.hasError('maxlength')">Max 50 characters</small>
+    </div>
+
+    <div class="form-group" *ngIf="eventForm.get('description') as descriptionCtl">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+      <small class="text-danger" *ngIf="descriptionCtl.hasError('maxlength')">Max 500 characters</small>
+    </div>
+
+    <div class="form-group" *ngIf="eventForm.get('date') as dateCtl">
+      <label for="date">Date<span class="text-danger">*</span></label>
+      <input type="date" id="date" class="form-control" formControlName="date">
+      <small class="text-danger" *ngIf="dateCtl.hasError('required') && dateCtl.dirty">Required</small>
+    </div>
+
+    <div class="form-group" *ngIf="eventForm.get('address') as addressCtl">
+      <label for="address">Address<span class="text-danger">*</span></label>
+      <select class="form-control" id="address" formControlName="address">
+        <option *ngIf="newAddress">{{newAddress.street}} {{newAddress.number}}
+          , {{newAddress.postcode}} {{newAddress.city}} ({{newAddress.country}})
+        </option>
+        <option *ngFor="let address of addressList" [value]="address.id">{{address.street}} {{address.number}}
+          , {{address.postcode}} {{address.city}} ({{address.country}})
+        </option>
+      </select>
+      <small class="text-danger" *ngIf="addressCtl.hasError('required') && addressCtl.dirty">Required</small>
+    </div>
+
+    <div>
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addressModal">
+        Create new Address
+      </button>
+    </div>
+
+    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <app-address-form (addressEvent)="submitAddress($event)"></app-address-form>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="eventForm.get('image') as imageCtl">
+      <label for="image">Image link</label>
+      <input type="text" id="image" class="form-control" formControlName="image" [value]="event?.image">
+      <small class="text-danger" *ngIf="imageCtl.hasError('maxlength')">Max 250 characters</small>
+
+      <div *ngIf="imageCtl.value" class="p-2"><img src="{{imageCtl.value}}"
+                                                   style="width: 10vh; height: 10vh; object-fit: cover;"
+                                                   alt="No image found"></div>
+    </div>
+
+    <div *ngIf="eventForm.get('limitedTo') as limitedToCtl">
+      <small class="text-danger" *ngIf="limitedToCtl.hasError('required')">Please select one</small>
+      <div class="form-check">
+        <input class="form-check-input" name="limitedTo" type="radio" id="all" value="all" formControlName="limitedTo">
+        <label for="all">Open to all</label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" name="limitedTo" type="radio" id="team" value="team"
+               formControlName="limitedTo">
+        <label for="team">Team only</label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" name="limitedTo" type="radio" id="department" value="department"
+               formControlName="limitedTo">
+        <label for="department">Department only</label>
+      </div>
+    </div>
+
+
+    <div>
+      <button *ngIf="!event" [disabled]="eventForm.invalid" type="submit" class="btn btn-primary">Create</button>
+    </div>
+    <div>
+      <button *ngIf="event" [disabled]="eventForm.invalid" type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</div>

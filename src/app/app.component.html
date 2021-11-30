@@ -1,16 +1,55 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/home">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/event/list">Events <span class="sr-only">(current)</span></a>
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="seeAll" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Events
+          </a>
+          <div class="dropdown-menu" aria-labelledby="seeAll">
+            <a class="dropdown-item" href="/event/all">All</a>
+            <a class="dropdown-item" href="/event/subscribed">Registered</a>
+            <a class="dropdown-item" href="/event/create">New</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="seeFollowed" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Topics
+          </a>
+          <div class="dropdown-menu" aria-labelledby="seeFollowed">
+            <a class="dropdown-item" href="/topic/all">All</a>
+            <a class="dropdown-item" href="/topic/subscribed">Followed</a>
+            <a class="dropdown-item" href="/topic/create">New</a>
+          </div>
         </li>
       </ul>
+    </div>
+
+    <div class="d-flex">
+
+      <div class="nav-item dropdown" *ngIf="user">
+
+        <a class="nav-link dropdown-toggle font-italic text-white" id="my" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="{{user.image}}" class="rounded-circle" style="width: 4vh; height: 4vh; object-fit: cover">
+          {{user.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="seeAll">
+          <a class="dropdown-item" href="/event/created">My Events</a>
+          <a class="dropdown-item" href="/topic/created">My Topics</a>
+          <div class="dropdown-divider"></div>
+          <a *ngIf="canManageUsers()" class="dropdown-item" href="/user/all">Users (admin)</a>
+          <a *ngIf="canManageEvents()" class="dropdown-item" href="/event/admin">All events (admin)</a>
+          <div *ngIf="canManageEvents() || canManageUsers()" class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="logout()">Log out</button>
+        </div>
+      </div>
     </div>
   </nav>
 </div>
