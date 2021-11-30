@@ -8,4 +8,4 @@ RUN npm install
 
 COPY src ./
 
-RUN ng serve
+RUN npm run build
