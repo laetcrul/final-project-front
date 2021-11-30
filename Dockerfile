@@ -1,11 +1,11 @@
 FROM node:current-alpine
 
-RUN mkdir -p /usr/src/app
-
-COPY src /usr/src/app
-
 WORKDIR /usr/src/app
 
+COPY package.json package-lock.json ./
+
 RUN npm install
+
+COPY src /usr/src/app
 
 ENTRYPOINT ["ng serve"]
