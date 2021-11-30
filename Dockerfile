@@ -2,7 +2,7 @@ FROM node:current-alpine
 
 RUN mkdir -p /usr/src/app
 
-COPY . /usr/src/app
+COPY src /usr/src/app
 
 WORKDIR /usr/src/app
 
